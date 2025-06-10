@@ -1,0 +1,15 @@
+{
+  "originHash" : "0d81be93fc6cb7e1913e7a4b5f7ecb8bb20ba76226fca9461ad03a5f63f29766",
+  "pins" : [
+    {
+      "identity" : "approuter",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Dimillian/AppRouter.git",
+      "state" : {
+        "revision" : "72f63f4312a231ab2706234b9e99c4b71651f38c",
+        "version" : "1.0.2"
+      }
+    }
+  ],
+  "version" : 3
+}

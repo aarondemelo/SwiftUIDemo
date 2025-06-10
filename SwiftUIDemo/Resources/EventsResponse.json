@@ -1,0 +1,128 @@
+[
+  {
+    "imageUrl": "https://cdn.builder.io/api/v1/image/assets/f2e7f53c455848669d211a7213780279/3c3fa113f952074823451df359942c1e09a69313?placeholderIfAbsent=true",
+    "title": "Boyz & Girlz NYC is back!",
+    "author": "Chriss Scott",
+    "neighbourhoods": ["Chelsea", "Harlem", "Tribeca"],
+    "dateTime": "2025-04-21T19:45:00Z",
+    "price": 89.99,
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium. Totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.\n\nNemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit. Sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est qui dolorem ipsum quia dolor sit amet."
+  },
+  {
+    "imageUrl": "https://cdn.builder.io/api/v1/image/assets/f2e7f53c455848669d211a7213780279/facdbe170f13d4d60525fa8c90ef8bf4549f9075?placeholderIfAbsent=true",
+    "title": "Midnight Rooftop Jazz in SoHo",
+    "author": "John Doe",
+    "neighbourhoods": ["SoHo", "West Village", "Astoria"],
+    "dateTime": "2025-03-11T22:15:00Z",
+    "price": 125.50,
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.\n\nSed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta."
+  },
+  {
+    "imageUrl": "https://cdn.builder.io/api/v1/image/assets/f2e7f53c455848669d211a7213780279/2b4ac2ea2c91bfa15de076b0d16bb1acbf2fa04e?placeholderIfAbsent=true",
+    "title": "Brooklyn Art & Brews Walking Tour",
+    "author": "Amanda Knox",
+    "neighbourhoods": ["Red Hook", "Flushing"],
+    "dateTime": "2025-05-08T17:30:00Z",
+    "price": 67.25,
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes.\n\nNascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim."
+  },
+  {
+    "imageUrl": "https://cdn.builder.io/api/v1/image/assets/f2e7f53c455848669d211a7213780279/13079b0c739a7c5ca1d850d4f275332b6a34de45?placeholderIfAbsent=true",
+    "title": "Central Park Picnic & Paddleboat Afternoon",
+    "author": "Amanda Knox",
+    "neighbourhoods": ["Upper East Side", "Forest Hills", "Chelsea"],
+    "dateTime": "2025-06-01T13:00:00Z",
+    "price": 156.75,
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus.\n\nMaecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum."
+  },
+  {
+    "imageUrl": "https://cdn.builder.io/api/v1/image/assets/f2e7f53c455848669d211a7213780279/0471f035346ecd33d37c48a9864063ff2ab7f1ca?placeholderIfAbsent=true",
+    "title": "Underground Comedy Night - East Village",
+    "author": "Chriss Scott",
+    "neighbourhoods": ["SoHo", "Harlem"],
+    "dateTime": "2025-04-28T20:00:00Z",
+    "price": 73.80,
+    "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.\n\nCum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec."
+  },
+  {
+    "imageUrl": "https://cdn.builder.io/api/v1/image/assets/f2e7f53c455848669d211a7213780279/a21b0b3bcb48491c03fd03d5614b12af2534ceab?placeholderIfAbsent=true",
+    "title": "Sunset Dumpling Crawl in Chinatown",
+    "author": "Natt Wats",
+    "neighbourhoods": ["Flushing", "Tribeca", "West Village"],
+    "dateTime": "2025-05-19T18:45:00Z",
+    "price": 192.40,
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus.\n\nAenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis."
+  },
+  {
+    "imageUrl": "https://cdn.builder.io/api/v1/image/assets/f2e7f53c455848669d211a7213780279/6ce605b15caf2d9d049aab453865d417614354fa?placeholderIfAbsent=true",
+    "title": "Immersive Art & Light Show at the Edge",
+    "author": "Susan Sandrandon",
+    "neighbourhoods": ["Astoria", "Upper East Side", "Forest Hills"],
+    "dateTime": "2025-06-05T21:00:00Z",
+    "price": 184.95,
+    "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor.\n\nCras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi."
+  },
+  {
+    "imageUrl": "https://cdn.builder.io/api/v1/image/assets/f2e7f53c455848669d211a7213780279/3c3fa113f952074823451df359942c1e09a69313?placeholderIfAbsent=true",
+    "title": "Boyz & Girlz NYC is back!",
+    "author": "Chriss Scott",
+    "neighbourhoods": ["Chelsea", "Harlem", "Tribeca"],
+    "dateTime": "2025-04-21T19:45:00Z",
+    "price": 89.99,
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium. Totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.\n\nNemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit. Sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est qui dolorem ipsum quia dolor sit amet."
+  },
+  {
+    "imageUrl": "https://cdn.builder.io/api/v1/image/assets/f2e7f53c455848669d211a7213780279/facdbe170f13d4d60525fa8c90ef8bf4549f9075?placeholderIfAbsent=true",
+    "title": "Midnight Rooftop Jazz in SoHo",
+    "author": "John Doe",
+    "neighbourhoods": ["SoHo", "West Village", "Astoria"],
+    "dateTime": "2025-03-11T22:15:00Z",
+    "price": 125.50,
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.\n\nSed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta."
+  },
+  {
+    "imageUrl": "https://cdn.builder.io/api/v1/image/assets/f2e7f53c455848669d211a7213780279/2b4ac2ea2c91bfa15de076b0d16bb1acbf2fa04e?placeholderIfAbsent=true",
+    "title": "Brooklyn Art & Brews Walking Tour",
+    "author": "Amanda Knox",
+    "neighbourhoods": ["Red Hook", "Flushing"],
+    "dateTime": "2025-05-08T17:30:00Z",
+    "price": 67.25,
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes.\n\nNascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim."
+  },
+  {
+    "imageUrl": "https://cdn.builder.io/api/v1/image/assets/f2e7f53c455848669d211a7213780279/13079b0c739a7c5ca1d850d4f275332b6a34de45?placeholderIfAbsent=true",
+    "title": "Central Park Picnic & Paddleboat Afternoon",
+    "author": "Amanda Knox",
+    "neighbourhoods": ["Upper East Side", "Forest Hills", "Chelsea"],
+    "dateTime": "2025-06-01T13:00:00Z",
+    "price": 156.75,
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus.\n\nMaecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum."
+  },
+  {
+    "imageUrl": "https://cdn.builder.io/api/v1/image/assets/f2e7f53c455848669d211a7213780279/0471f035346ecd33d37c48a9864063ff2ab7f1ca?placeholderIfAbsent=true",
+    "title": "Underground Comedy Night - East Village",
+    "author": "Chriss Scott",
+    "neighbourhoods": ["SoHo", "Harlem"],
+    "dateTime": "2025-04-28T20:00:00Z",
+    "price": 73.80,
+    "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.\n\nCum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec."
+  },
+  {
+    "imageUrl": "https://cdn.builder.io/api/v1/image/assets/f2e7f53c455848669d211a7213780279/a21b0b3bcb48491c03fd03d5614b12af2534ceab?placeholderIfAbsent=true",
+    "title": "Sunset Dumpling Crawl in Chinatown",
+    "author": "Natt Wats",
+    "neighbourhoods": ["Flushing", "Tribeca", "West Village"],
+    "dateTime": "2025-05-19T18:45:00Z",
+    "price": 192.40,
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus.\n\nAenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis."
+  },
+  {
+    "imageUrl": "https://cdn.builder.io/api/v1/image/assets/f2e7f53c455848669d211a7213780279/6ce605b15caf2d9d049aab453865d417614354fa?placeholderIfAbsent=true",
+    "title": "Immersive Art & Light Show at the Edge",
+    "author": "Susan Sandrandon",
+    "neighbourhoods": ["Astoria", "Upper East Side", "Forest Hills"],
+    "dateTime": "2025-06-05T21:00:00Z",
+    "price": 184.95,
+    "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor.\n\nCras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi."
+  }
+]
