@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct RangeSliderView: View {
+struct BuilderRangeSliderView: View {
     let currentValue: Binding<ClosedRange<Float>>
     let sliderBounds: ClosedRange<Int>
     
@@ -97,7 +97,8 @@ struct RangeSliderView_Previews: PreviewProvider {
         @State private var selectedRange: ClosedRange<Float> = 20...80
 
         var body: some View {
-            RangeSliderView(value: $selectedRange, bounds: 0...100)
+            BuilderRangeSliderView(value: $selectedRange, bounds: 0...100)
+            Spacer()
         }
     }
 

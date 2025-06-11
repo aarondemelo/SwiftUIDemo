@@ -9,112 +9,88 @@ struct EventsFilterView: View {
 
   private var selectedNeighborhood: String = "Selected Neighborhood"
   private var selectedTags = ["Tribeca", "SoHo", "Chelsea", "West Village"]
-
+    @State private var eventTypeNight = true
+    @State private var eventTypeDay = false
+    @State private var selectedRange: ClosedRange<Float> = 20...80
 
   var body: some View {
       
-      VStack(alignment: .leading, spacing: 16) {
-          
-          SheetTitleView(title: "Filter Events", closeAction: {
-                router.dismissSheet()
-            })
-          Spacer()
-          
-          
-          
+      ScrollView {
+          VStack(alignment: .leading, spacing: 25) {
+              
+              SheetTitleView(title: "Filter Events", closeAction: {
+                  router.dismissSheet()
+              }).padding(.vertical)
+              
+              SortOrderSelectorView().padding()
+              
+              
+              VStack(alignment: .leading, spacing: 20) {
+                  Text("Event Type").headingH6Medium()
+                  Toggle(isOn: $eventTypeNight) {
+                      Text("Night").labelL1Semibold()
+                  }
+                  .toggleStyle(CheckboxStyle())
+                  
+                  Toggle(isOn: $eventTypeDay) {
+                      Text("Day").labelL1Semibold()
+                  }
+                  .toggleStyle(CheckboxStyle())
+              }
+              .padding(.horizontal)
+              
+              VStack(alignment: .leading, spacing: 20) {
+                  Text("Neigbourhoods").headingH6Medium().padding(.bottom, 8)
+                  
+                  Menu {
+                      Button("Tribeca", action: {})
+                      Button("Chelsea", action: {})
+                      // etc.
+                  } label: {
+                      HStack {
+                          Text(selectedNeighborhood).labelL1Semibold()
+                          Spacer()
+                          Image(systemName: "chevron.down")
+                      }
+                      .padding()
+                      .background(Color.white)
+                      .cornerRadius(8)
+                      .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.gray.opacity(0.4)))
+                  }
+                  
+                  Text("Selected (\(selectedTags.count))").paragraphP2Regular()
+                  
+                  ScrollView(.horizontal, showsIndicators: false) {
+                      HStack(spacing: 8) {
+                          ForEach(selectedTags, id: \.self) { tag in
+                              Text(tag).buttonB3Semibold()
+                                  .padding(.horizontal, 12)
+                                  .padding(.vertical, 8)
+                                  .background(Capsule().fill(Color.baseTertiaryNormal))
+                          }
+                      }
+                  }
+                  
+                  
+                  
+              }
+              .padding(.horizontal)
+              
+              
+              VStack(alignment: .leading, spacing: 20) {
+                  HStack{
+                      Text("Price").headingH6Medium().padding(.bottom, 8)
+                      Spacer()
+                  }
+                  
+                  BuilderRangeSliderView(value: $selectedRange, bounds: 0...100).frame(height: 20)
+                  
+                  
+              }.padding(.horizontal)
+              
+          }
       }
       
-      
-      
-      
-
-//
-//      // Sort
-//      Text("Sort").font(.headline).padding(.horizontal)
-//      HStack(spacing: 8) {
-//          ForEach(SortOrder.allCases, id: \.self) { option in
-//          Button(option) {
-//              $filterSettings.sortOrder = option
-//          }
-//          .padding(.horizontal)
-//          .padding(.vertical, 8)
-//          .background($filterSettings.sortOrder == option ? Color.yellow : Color.white)
-//          .foregroundColor(.black)
-//          .cornerRadius(20)
-//          .overlay(
-//            RoundedRectangle(cornerRadius: 20)
-//              .stroke(Color.yellow, lineWidth: 1)
-//          )
-//        }
-//      }
-//      .padding(.horizontal)
-//
-//      // Event Type
-//      Text("Event Type").font(.headline).padding(.horizontal)
-//      VStack(alignment: .leading, spacing: 8) {
-//          Toggle(isOn: $filterSettings.eventTimeOfDay.contains(.night)) {
-//          Text("Night")
-//        }
-//        .toggleStyle(CheckboxStyle())
-//
-//          Toggle(isOn: $filterSettings.eventTimeOfDay.contains(.day)) {
-//
-//          Text("Day")
-//        }
-//        .toggleStyle(CheckboxStyle())
-//      }
-//      .padding(.horizontal)
-//
-//      // Neighborhoods
-//      Text("Neighborhoods").font(.headline).padding(.horizontal)
-//      Menu {
-//        Button("Tribeca", action: {})
-//        Button("Chelsea", action: {})
-//        // etc.
-//      } label: {
-//        HStack {
-//          Text(selectedNeighborhood)
-//          Spacer()
-//          Image(systemName: "chevron.down")
-//        }
-//        .padding()
-//        .background(Color.white)
-//        .cornerRadius(8)
-//        .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.gray.opacity(0.4)))
-//      }
-//      .padding(.horizontal)
-//
-//      Text("Selected (\(selectedTags.count))").font(.subheadline).padding(.horizontal)
-//
-////      ScrollView(.horizontal, showsIndicators: false) {
-////        HStack(spacing: 8) {
-////          ForEach(selectedTags, id: \.self) { tag in
-////            Text(tag)
-////              .padding(.horizontal, 12)
-////              .padding(.vertical, 8)
-////              .background(Color.gray.opacity(0.2))
-////              .cornerRadius(16)
-////          }
-////        }.padding(.horizontal)
-////      }
-//
-//      // Price
-////      Text("Price").font(.headline).padding(.horizontal)
-////      HStack {
-////        Text("$\(Int(priceRange.lowerBound))")
-////        Spacer()
-////        Text("$\(Int(priceRange.upperBound))")
-////      }.padding(.horizontal)
-////
-////      Slider(value: $minPrice, in: 0...130)
-////        .padding(.horizontal)
-////      Slider(value: $minPrice, in: priceRange.lowerBound...200)
-////        .padding(.horizontal)
-//
-////      Spacer()
-    
-      EmptyView()
-
   }
 }
 
