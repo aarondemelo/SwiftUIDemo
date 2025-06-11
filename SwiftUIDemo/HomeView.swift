@@ -19,7 +19,7 @@ struct HomeView: View {
     .sheet(item: $router.presentedSheet) { presentedSheet in
       switch presentedSheet {
       case .eventFilters:
-        EventFiltersView()
+        EventsFilterView()
       case .composeMessage:
         ComposeMessagesView()
       }

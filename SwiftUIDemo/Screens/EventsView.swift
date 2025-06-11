@@ -4,9 +4,11 @@ struct EventsView: View {
   @Environment(CatalogueClient.self) private var catalogueClient
   @Environment(AppRouter.self) private var router
 
+    
   @State private var events: [Event] = []
   @State private var isLoading = false
   @State private var errorMessage: String?
+  @StateObject private var filterSettings = EventFilterSettings()
 
   var body: some View {
     VStack {
@@ -48,7 +50,7 @@ struct EventsView: View {
     .refreshable {
       await loadEvents()
     }.scrollContentBackground(.hidden)
-
+          .environmentObject(filterSettings)
     //}
   }
 
@@ -66,7 +68,7 @@ struct EventsView: View {
   }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct EventsView_Previews: PreviewProvider {
   static let myEnvObject = CatalogueClient()
   static let myRouterObject = AppRouter(initialTab: AppTab.events)
 
