@@ -22,7 +22,7 @@ struct MessagesView: View {
           ForEach(messages, id: \.id) { message in
             ZStack(alignment: .leading) {
               MessageRowView(message: message)
-              NavigationLink(value: message) {
+              NavigationLink(value: Destination.openMessage(message: message)) {
                 EmptyView()
               }.opacity(0)
             }.listRowInsets(EdgeInsets(top: 8, leading: 6, bottom: 8, trailing: 6))
@@ -36,7 +36,10 @@ struct MessagesView: View {
     .navigationTitle("Messages")
     .toolbar {
       ToolbarItem(placement: .topBarTrailing) {
-        ToolbarNavigation(iconName: "NewMessage")
+        ToolbarButton(iconName: "NewMessage") {
+          router.navigateTo(Destination.openMessage(message: nil))
+        }
+
       }
     }
     .task {

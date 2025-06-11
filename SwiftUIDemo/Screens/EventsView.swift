@@ -24,7 +24,7 @@ struct EventsView: View {
             // *** Wrap EventRowView in NavigationLink ***
             ZStack(alignment: .leading) {
               EventRowView(event: event)
-              NavigationLink(value: event) {
+              NavigationLink(value: Destination.eventDetail(event: event)) {
                 EmptyView()
               }.opacity(0)
             }.listRowInsets(EdgeInsets(top: 8, leading: 6, bottom: 8, trailing: 6))

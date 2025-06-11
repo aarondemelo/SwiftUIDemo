@@ -8,20 +8,22 @@ struct HomeView: View {
   var body: some View {
     TabView(selection: $router.selectedTab) {
       ForEach(AppTab.allCases, id: \.self) { tab in
-        NavigationStack {
-          viewForTab(tab).sheet(item: $router.presentedSheet) { presentedSheet in
-            switch presentedSheet {
-            case .eventFilters:
-              EventsFilterView()
-            case .openContacts:
-              ContactsView()
-            }
+        NavigationStack(path: $router[tab]) {
+          viewForTab(tab).navigationDestination(for: Destination.self) { destination in
+            destinationView(for: destination)
           }
         }
         .tabItem {
           Label(tab.rawValue.capitalized, image: tab.icon)
         }
         .tag(tab)
+      }
+    }.sheet(item: $router.presentedSheet) { presentedSheet in
+      switch presentedSheet {
+      case .eventFilters:
+        EventsFilterView()
+      case .openContacts:
+        ContactsView()
       }
     }
     .environment(router)
@@ -44,13 +46,9 @@ struct HomeView: View {
   func viewForTab(_ tab: AppTab) -> some View {
     switch tab {
     case .events:
-      EventsView().navigationDestination(for: Event.self) { event in
-        EventDetailView(event: event)
-      }
+      EventsView()
     case .messages:
-      MessagesView().navigationDestination(for: Message.self) { message in
-        ComposeMessageView(message: message)
-      }
+      MessagesView()
     case .profile: ProfileView()
     }
   }
