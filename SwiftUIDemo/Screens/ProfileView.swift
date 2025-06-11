@@ -64,7 +64,7 @@ struct ProfileView: View {
       .padding(.vertical, 4)
 
       VStack(alignment: .leading, spacing: 0) {
-        NavigationLink(destination: Text("Edit Profile View")) {
+        NavigationLink(destination: ProfileEditView()) {
           HStack(alignment: .center, spacing: 0) {
             HStack(alignment: .center, spacing: 0) {
               // Paragraph/P1 Regular
