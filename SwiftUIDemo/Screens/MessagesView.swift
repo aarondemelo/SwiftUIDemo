@@ -31,7 +31,13 @@ struct MessagesView: View {
       }
     }
     .navigationTitle("Messages")
-    .toolbar {}
+    .toolbar {
+      ToolbarItem(placement: .topBarTrailing) {
+        ToolbarButton(iconName: "NewMessage") {
+          router.presentSheet(.composeMessage)
+        }
+      }
+    }
     .task {
       await loadMessages()
     }

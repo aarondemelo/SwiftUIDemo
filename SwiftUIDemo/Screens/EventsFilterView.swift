@@ -38,21 +38,6 @@ struct EventsFilterView: View {
         )
     }
     
-    
-//    private var priceRangeBinding: Binding<ClosedRange<Float>> {
-//        Binding<ClosedRange<Float>>(
-//            get: {
-//                // Convert Double range to Float range for the slider
-//                Float(filterSettings.priceRange.lowerBound)...Float(filterSettings.priceRange.upperBound)
-//            },
-//            set: { newValue in
-//                // Convert Float range back to Double range for the filter settings
-//                filterSettings.priceRange = Double(newValue.lowerBound)...Double(newValue.upperBound)
-//            }
-//        )
-//    }
-    
-    
     var body: some View {
         
         ScrollView {
