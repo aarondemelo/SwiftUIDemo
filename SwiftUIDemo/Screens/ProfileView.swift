@@ -6,19 +6,151 @@ struct ProfileView: View {
   @Environment(\.colorScheme) private var systemColorScheme
 
   var body: some View {
+    let imageUrlString: String =
+      "https://cdn.builder.io/api/v1/image/assets/f2e7f53c455848669d211a7213780279/19e3f4ef8b50939086b88f10142cd3a5f62adbf9?placeholderIfAbsent=true"
+
     VStack {
-      Text("Profile")
-        .font(.title)
-        .padding()
-        .foregroundColor(themeManager.current.background)
-      BuilderButton(
-        title: "Logout", size: .large, state: .enabled, type: .primary, iconPosition: nil
-      ) {
-        appState.wrappedValue = .unauthenticated
-        //      themeManager.current =
-        //        themeManager.current == .dark
-        //        ? Theme.light
-        //        : Theme.dark
+      HStack(alignment: .center, spacing: 20) {
+        AsyncImage(url: URL(string: imageUrlString)) { phase in
+          switch phase {
+          case .empty:
+            // Placeholder while loading
+            ProgressView()
+              .frame(width: 64, height: 64)
+              .background(Color(red: 0.77, green: 0.77, blue: 0.77))
+              .cornerRadius(64)
+          case .success(let image):
+            // Display the loaded image
+            image
+              .resizable()
+              .aspectRatio(contentMode: .fill)
+              .frame(width: 64, height: 64)
+              .clipped()  // Clip to bounds after filling the frame
+              .background(Color(red: 0.77, green: 0.77, blue: 0.77))  // This background might be redundant if the image covers it
+              .cornerRadius(64)
+          case .failure:
+            // Placeholder for failed load (e.g., system icon or solid color)
+            Image(systemName: "photo")  // Or a broken image icon
+              .resizable()
+              .aspectRatio(contentMode: .fit)  // Use fit for system icons
+              .frame(width: 64, height: 64)
+              .background(Color.gray)  // A different background for error
+              .cornerRadius(64)
+          @unknown default:
+            EmptyView()
+          }
+        }
+        VStack(alignment: .leading, spacing: 4) {
+          // Navigation Bar/Small Title
+          Text("Amanda Doe")
+            .font(
+              Font.custom("Inter", size: 18)
+                .weight(.bold)
+            )
+            .foregroundColor(themeManager.current.text)
+            .frame(maxWidth: .infinity, alignment: .topLeading)
+          // Paragraph/P1 Regular
+          Text("amanda@gmail.com")
+            .font(Font.custom("Inter", size: 15))
+            .kerning(0.5)
+            .foregroundColor(themeManager.current.secondaryLight)
+            .frame(maxWidth: .infinity, alignment: .topLeading)
+        }
+        .padding(0)
+        .frame(maxWidth: .infinity, alignment: .topLeading)
+        Spacer()
+      }
+      .padding(.horizontal, 16)
+      .padding(.vertical, 4)
+
+      VStack(alignment: .leading, spacing: 0) {
+        NavigationLink(destination: Text("Edit Profile View")) {
+          HStack(alignment: .center, spacing: 0) {
+            HStack(alignment: .center, spacing: 0) {
+              // Paragraph/P1 Regular
+              Text("Edit Profile")
+                .font(Font.custom("Inter", size: 15))
+                .kerning(0.5)
+                .foregroundColor(.black)
+                .frame(maxWidth: .infinity, alignment: .topLeading)
+            }
+            .padding(.horizontal, 16)
+            .padding(.vertical, 20)
+            .frame(maxWidth: .infinity, minHeight: 56, maxHeight: 56, alignment: .leading)
+            HStack(alignment: .top, spacing: 0) {
+              Image(systemName: "chevron.right")
+                .foregroundColor(themeManager.current.text)
+            }
+            .padding(16)
+          }
+          .padding(0)
+          .frame(alignment: .leading)
+        }
+
+        NavigationLink(destination: Text("Notification View")) {
+          HStack(alignment: .center, spacing: 0) {
+            HStack(alignment: .center, spacing: 0) {
+              // Paragraph/P1 Regular
+              Text("Notification")
+                .font(Font.custom("Inter", size: 15))
+                .kerning(0.5)
+                .foregroundColor(.black)
+                .frame(maxWidth: .infinity, alignment: .topLeading)
+            }
+            .padding(.horizontal, 16)
+            .padding(.vertical, 20)
+            .frame(maxWidth: .infinity, minHeight: 56, maxHeight: 56, alignment: .leading)
+            HStack(alignment: .top, spacing: 0) {
+              Image(systemName: "chevron.right")
+                .foregroundColor(themeManager.current.text)
+            }
+            .padding(16)
+          }
+          .padding(0)
+          .frame(alignment: .leading)
+        }
+
+        NavigationLink(destination: Text("Terms & Condition View")) {
+          HStack(alignment: .center, spacing: 0) {
+            HStack(alignment: .center, spacing: 0) {
+              // Paragraph/P1 Regular
+              Text("Terms & Condition")
+                .font(Font.custom("Inter", size: 15))
+                .kerning(0.5)
+                .foregroundColor(.black)
+                .frame(maxWidth: .infinity, alignment: .topLeading)
+            }
+            .padding(.horizontal, 16)
+            .padding(.vertical, 20)
+            .frame(maxWidth: .infinity, minHeight: 56, maxHeight: 56, alignment: .leading)
+            HStack(alignment: .top, spacing: 8) {
+              Image(systemName: "chevron.right")
+                .foregroundColor(themeManager.current.text)
+            }
+            .padding(16)
+          }
+          .padding(0)
+          .frame(alignment: .leading)
+        }
+        
+        Button(action: {
+          appState.wrappedValue = .unauthenticated
+        }) {
+          HStack(alignment: .center, spacing: 0) {
+            HStack(alignment: .center, spacing: 0) { // This inner HStack seems redundant unless there's an icon you removed.
+              Text("Logout")
+                .font(Font.custom("Inter", size: 15))
+                .kerning(0.5)
+                .foregroundColor(.red)
+                .frame(maxWidth: .infinity, alignment: .topLeading)
+            }
+            .padding(.horizontal, 16)
+            .padding(.vertical, 20)
+            .frame(maxWidth: .infinity, minHeight: 56, maxHeight: 56, alignment: .leading)
+            Spacer()
+          }
+        }
+        .buttonStyle(PlainButtonStyle())
       }
       Spacer()
     }
