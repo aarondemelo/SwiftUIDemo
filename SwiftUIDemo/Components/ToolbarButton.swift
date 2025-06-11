@@ -17,21 +17,19 @@ struct ToolbarButton: View {
   }
 }
 
-
 struct ToolbarNavigation: View {
-    let iconName: String
-    
-    var body: some View {
-        ZStack{
-            Image(iconName)
-                .resizable()
-                .scaledToFit()
-                .frame(width: 18, height: 18)  // Adjust size as needed
-                .foregroundColor(.black)
-                .padding(12)  // Padding around the image
-                .background(Circle().fill(Color.yellow))
-            NavigationLink("", destination: ComposeMessageView(message: nil))
-        }
-    }
-}
+  let iconName: String
 
+  var body: some View {
+    ZStack {
+      Image(iconName)
+        .resizable()
+        .scaledToFit()
+        .frame(width: 18, height: 18)  // Adjust size as needed
+        .foregroundColor(.black)
+        .padding(12)  // Padding around the image
+        .background(Circle().fill(Color.yellow))
+      NavigationLink("", destination: ComposeMessageView(message: nil))
+    }
+  }
+}

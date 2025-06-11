@@ -41,7 +41,7 @@ struct ComposeMessageView: View {
       .padding(.vertical, 6)
       .padding(.horizontal, 12)
       .background(Color(UIColor.systemBackground))
-      .onAppear(){
+      .onAppear {
       }
 
     }  // Padding for the input field row

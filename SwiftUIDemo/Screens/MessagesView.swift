@@ -36,7 +36,7 @@ struct MessagesView: View {
     .navigationTitle("Messages")
     .toolbar {
       ToolbarItem(placement: .topBarTrailing) {
-          ToolbarNavigation(iconName: "NewMessage")
+        ToolbarNavigation(iconName: "NewMessage")
       }
     }
     .task {
