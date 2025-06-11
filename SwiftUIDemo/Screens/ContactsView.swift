@@ -15,6 +15,7 @@ struct ContactsView: View {
 
   @State private var searchText = ""
   @State private var selectedContact: UUID?
+  @State private var didExplicitlySave: Bool = false
 
   private var allContacts: [Contact] = [
     Contact(name: "Abraham Lincoln"),
@@ -75,7 +76,7 @@ struct ContactsView: View {
                     object: nil,
                     userInfo: ["message": contact.name, "timestamp": Date()]
                   )
-
+                  didExplicitlySave = true
                   router.dismissSheet()
                 }
             }
@@ -83,6 +84,11 @@ struct ContactsView: View {
         }
       }
       .searchable(text: $searchText)
+    }.onDisappear {
+
+      if !didExplicitlySave {
+        router.popNavigation(for: .messages)
+      }
     }
 
   }

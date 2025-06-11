@@ -14,7 +14,7 @@ class User: ObservableObject {
 
   // Initializer
   init(
-    firstName: String, lastName: String, email: String, profileImageURL: String? = nil,
+    firstName: String, lastName: String, email: String, profileImageURL: String? = nil
   ) {
     self.id = UUID()
     self.firstName = firstName
