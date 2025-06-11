@@ -4,7 +4,7 @@ struct ProfileView: View {
   @Environment(\.appState) var appState
   @EnvironmentObject var themeManager: ThemeManager
   @Environment(\.colorScheme) private var systemColorScheme
-  
+
   var body: some View {
     VStack {
       Text("Profile")
@@ -23,7 +23,7 @@ struct ProfileView: View {
       Spacer()
     }
     .navigationTitle("Profile")
-    
+
   }
 }
 

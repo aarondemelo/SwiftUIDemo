@@ -22,9 +22,9 @@ struct MessagesView: View {
           ForEach(messages, id: \.id) { message in
             ZStack(alignment: .leading) {
               MessageRowView(message: message)
-                NavigationLink(value: message) {
-                  EmptyView()
-                }.opacity(0)
+              NavigationLink(value: message) {
+                EmptyView()
+              }.opacity(0)
             }.listRowInsets(EdgeInsets(top: 8, leading: 6, bottom: 8, trailing: 6))
 
               .listRowSeparator(.hidden)
@@ -37,9 +37,9 @@ struct MessagesView: View {
     .toolbar {
       ToolbarItem(placement: .topBarTrailing) {
         ToolbarButton(iconName: "NewMessage") {
-            DispatchQueue.main.async {
-                router.navigateTo(.openMessage(message: nil))
-            }
+          DispatchQueue.main.async {
+            router.navigateTo(.openMessage(message: nil))
+          }
         }
       }
     }
