@@ -43,9 +43,9 @@ struct ComposeMessageView: View {
       .padding(.horizontal, 12)
       .background(Color(UIColor.systemBackground))
       .onReceive(NotificationCenter.default.publisher(for: .selectedContactName)) { notification in
-          if let selectedName = notification.userInfo?["message"] as? String {
-              message = Message(avatar: URL(string: "about:blank")!, name: selectedName, message: "") 
-          }
+        if let selectedName = notification.userInfo?["message"] as? String {
+          message = Message(avatar: URL(string: "about:blank")!, name: selectedName, message: "")
+        }
       }
       .onAppear {
         if message == nil {
