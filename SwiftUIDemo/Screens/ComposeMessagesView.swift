@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct ComposeMessageView: View {
+  @Environment(AppRouter.self) private var router
   var message: Message?
 
   var body: some View {
@@ -40,6 +41,8 @@ struct ComposeMessageView: View {
       .padding(.vertical, 6)
       .padding(.horizontal, 12)
       .background(Color(UIColor.systemBackground))
+      .onAppear(){
+      }
 
     }  // Padding for the input field row
     .padding(.bottom, 8)

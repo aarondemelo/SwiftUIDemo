@@ -36,11 +36,7 @@ struct MessagesView: View {
     .navigationTitle("Messages")
     .toolbar {
       ToolbarItem(placement: .topBarTrailing) {
-        ToolbarButton(iconName: "NewMessage") {
-          DispatchQueue.main.async {
-            router.navigateTo(.openMessage(message: nil))
-          }
-        }
+          ToolbarNavigation(iconName: "NewMessage")
       }
     }
     .task {
