@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct ProfileView: View {
+  @Environment(\.appState) var appState
   @EnvironmentObject var themeManager: ThemeManager
   @Environment(\.colorScheme) private var systemColorScheme
 
@@ -10,12 +11,13 @@ struct ProfileView: View {
       .padding()
       .foregroundColor(themeManager.current.background)
     BuilderButton(
-      title: "ANYTHING", size: .large, state: .enabled, type: .primary, iconPosition: nil
+      title: "Logout", size: .large, state: .enabled, type: .primary, iconPosition: nil
     ) {
-      themeManager.current =
-        themeManager.current == .dark
-        ? Theme.light
-        : Theme.dark
+      appState.wrappedValue = .unauthenticated
+      //      themeManager.current =
+      //        themeManager.current == .dark
+      //        ? Theme.light
+      //        : Theme.dark
     }
   }
 }

@@ -18,10 +18,10 @@ class CatalogueClient {
   func loadComments() async -> [Message] {
     return await loadJSON(from: "Responses/comments.json")
   }
-    
-    func setFilters() {
-        
-    }
+
+  func setFilters() {
+
+  }
 
   private func loadJSON<T: Decodable>(from path: String) async -> [T] {
     return await withCheckedContinuation { continuation in
