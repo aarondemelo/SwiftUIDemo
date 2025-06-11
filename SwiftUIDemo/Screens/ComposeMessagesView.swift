@@ -2,7 +2,8 @@ import SwiftUI
 
 struct ComposeMessageView: View {
   @Environment(AppRouter.self) private var router
-  var message: Message?
+
+  @State var message: Message?
 
   var body: some View {
 
@@ -41,10 +42,15 @@ struct ComposeMessageView: View {
       .padding(.vertical, 6)
       .padding(.horizontal, 12)
       .background(Color(UIColor.systemBackground))
-      .onAppear {
-          if(message == nil) {
-              router.presentSheet(.openContacts)
+      .onReceive(NotificationCenter.default.publisher(for: .selectedContactName)) { notification in
+          if let selectedName = notification.userInfo?["message"] as? String {
+              message = Message(avatar: URL(string: "about:blank")!, name: selectedName, message: "") 
           }
+      }
+      .onAppear {
+        if message == nil {
+          router.presentSheet(.openContacts)  // Open contacts when the view appears
+        }
       }
 
     }  // Padding for the input field row

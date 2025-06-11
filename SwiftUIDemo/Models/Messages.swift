@@ -6,3 +6,7 @@ struct Message: Identifiable, Codable, Hashable {
   let name: String
   let message: String
 }
+
+extension Notification.Name {
+  static let selectedContactName = Notification.Name("SelectedContactName")
+}

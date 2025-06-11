@@ -9,20 +9,19 @@ struct HomeView: View {
     TabView(selection: $router.selectedTab) {
       ForEach(AppTab.allCases, id: \.self) { tab in
         NavigationStack {
-          viewForTab(tab)
+          viewForTab(tab).sheet(item: $router.presentedSheet) { presentedSheet in
+            switch presentedSheet {
+            case .eventFilters:
+              EventsFilterView()
+            case .openContacts:
+              ContactsView()
+            }
+          }
         }
         .tabItem {
           Label(tab.rawValue.capitalized, image: tab.icon)
         }
         .tag(tab)
-      }
-    }
-    .sheet(item: $router.presentedSheet) { presentedSheet in
-      switch presentedSheet {
-      case .eventFilters:
-        EventsFilterView()
-      case .openContacts:
-        ContactsView()
       }
     }
     .environment(router)

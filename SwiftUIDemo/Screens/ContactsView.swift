@@ -69,7 +69,14 @@ struct ContactsView: View {
                       contact.id == selectedContact ? Color.purple : Color.clear, lineWidth: 1)
                 )
                 .onTapGesture {
-                  selectedContact = contact.id
+
+                  NotificationCenter.default.post(
+                    name: .selectedContactName,
+                    object: nil,
+                    userInfo: ["message": contact.name, "timestamp": Date()]
+                  )
+
+                  router.dismissSheet()
                 }
             }
           }
