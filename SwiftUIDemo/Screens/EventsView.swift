@@ -4,7 +4,6 @@ struct EventsView: View {
   @Environment(CatalogueClient.self) private var catalogueClient
   @Environment(AppRouter.self) private var router
 
-    
   @State private var events: [Event] = []
   @State private var isLoading = false
   @State private var errorMessage: String?
@@ -50,7 +49,7 @@ struct EventsView: View {
     .refreshable {
       await loadEvents()
     }.scrollContentBackground(.hidden)
-          .environmentObject(filterSettings)
+    .environmentObject(filterSettings)
     //}
   }
 

@@ -65,7 +65,7 @@ struct LoginView: View {
           .background(themeManager.current.primary)
           .foregroundColor(.white)
           .cornerRadius(10)
-      } 
+      }
 
     }
     .padding()

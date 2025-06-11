@@ -7,16 +7,16 @@ struct SheetTitleView: View {
   let closeAction: () -> Void
 
   var body: some View {
-      HStack {
-        Button(action: {
-            closeAction()
-        }) {
-          Image(systemName: "xmark")
-        }
-        Spacer()
-          Text(title).navBarSmallTitle(color: themeManager.current.text)
-        Spacer()
+    HStack {
+      Button(action: {
+        closeAction()
+      }) {
+        Image(systemName: "xmark")
       }
-      .padding(.horizontal)
+      Spacer()
+      Text(title).navBarSmallTitle(color: themeManager.current.text)
+      Spacer()
+    }
+    .padding(.horizontal)
   }
 }
