@@ -17,7 +17,7 @@ enum AppTab: String, TabType, CaseIterable {
 
 enum Destination: DestinationType {
   case eventDetail(event: Event)
-  case composeMessage
+  case openMessage(message: Message?)
   case profile(userId: String)
 
   static func from(path: String, fullPath: [String], parameters: [String: String]) -> Destination? {
@@ -27,7 +27,7 @@ enum Destination: DestinationType {
 
 enum Sheet: SheetType {
   case eventFilters
-  case composeMessage
+  case openContacts
 
   var id: Int { hashValue }
 }

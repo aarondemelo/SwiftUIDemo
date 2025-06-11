@@ -21,13 +21,25 @@ struct HomeView: View {
       switch presentedSheet {
       case .eventFilters:
         EventsFilterView()
-      case .composeMessage:
-        ComposeMessagesView()
+      case .openContacts:
+        ComposeMessageView()
       }
     }
     .environment(router)
     .environmentObject(filterSettings)
   }
+    
+    @ViewBuilder
+      private func destinationView(for destination: Destination) -> some View {
+          switch destination {
+            case .eventDetail(let event):
+                EventDetailView(event: event)
+            case .openMessage(let message):
+                ComposeMessageView(message: message)
+          default:
+                EmptyView()
+          }
+      }
 
   @ViewBuilder
   func viewForTab(_ tab: AppTab) -> some View {
@@ -36,7 +48,9 @@ struct HomeView: View {
       EventsView().navigationDestination(for: Event.self) { event in
         EventDetailView(event: event)
       }
-    case .messages: MessagesView()
+    case .messages: MessagesView().navigationDestination(for: Message.self) { message in
+        ComposeMessageView(message: message)
+      }
     case .profile: ProfileView()
     }
   }
