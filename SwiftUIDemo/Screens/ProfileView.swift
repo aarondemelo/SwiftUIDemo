@@ -132,12 +132,12 @@ struct ProfileView: View {
           .padding(0)
           .frame(alignment: .leading)
         }
-        
+
         Button(action: {
           appState.wrappedValue = .unauthenticated
         }) {
           HStack(alignment: .center, spacing: 0) {
-            HStack(alignment: .center, spacing: 0) { // This inner HStack seems redundant unless there's an icon you removed.
+            HStack(alignment: .center, spacing: 0) {  // This inner HStack seems redundant unless there's an icon you removed.
               Text("Logout")
                 .font(Font.custom("Inter", size: 15))
                 .kerning(0.5)
