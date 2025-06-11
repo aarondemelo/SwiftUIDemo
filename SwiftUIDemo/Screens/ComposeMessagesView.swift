@@ -42,6 +42,7 @@ struct ComposeMessageView: View {
       .padding(.horizontal, 12)
       .background(Color(UIColor.systemBackground))
       .onAppear {
+          router.presentSheet(.openContacts)
       }
 
     }  // Padding for the input field row

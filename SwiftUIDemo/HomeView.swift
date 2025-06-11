@@ -22,7 +22,7 @@ struct HomeView: View {
       case .eventFilters:
         EventsFilterView()
       case .openContacts:
-        ComposeMessageView()
+          ContactsView()
       }
     }
     .environment(router)

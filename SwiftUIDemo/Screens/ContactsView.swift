@@ -11,6 +11,8 @@ struct SectionedContacts: Identifiable {
 }
 
 struct ContactsView: View {
+  @Environment(AppRouter.self) private var router
+
   @State private var searchText = ""
   @State private var selectedContact: UUID?
 
@@ -43,32 +45,39 @@ struct ContactsView: View {
   }
 
   var body: some View {
-    NavigationStack {
-      List {
-        ForEach(filteredSections) { section in
-          Section(
-            header: Text(section.id).font(.headline).foregroundColor(.black).background(
-              Color(UIColor.systemGray5))
-          ) {
-            ForEach(section.contacts) { contact in
-              Text(contact.name)
-                .padding()
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .background(
-                  RoundedRectangle(cornerRadius: 4)
-                    .stroke(
-                      contact.id == selectedContact ? Color.purple : Color.clear, lineWidth: 1)
-                )
-                .onTapGesture {
-                  selectedContact = contact.id
-                }
+      VStack {
+          SheetTitleView(
+            title: "Contacts",
+            closeAction: {
+              router.dismissSheet()
             }
+          ).padding(.vertical)
+          
+          List {
+              ForEach(filteredSections) { section in
+                  Section(
+                    header: Text(section.id).font(.headline).foregroundColor(.black).background(
+                        Color(UIColor.systemGray5))
+                  ) {
+                      ForEach(section.contacts) { contact in
+                          Text(contact.name)
+                              .padding()
+                              .frame(maxWidth: .infinity, alignment: .leading)
+                              .background(
+                                RoundedRectangle(cornerRadius: 4)
+                                    .stroke(
+                                        contact.id == selectedContact ? Color.purple : Color.clear, lineWidth: 1)
+                              )
+                              .onTapGesture {
+                                  selectedContact = contact.id
+                              }
+                      }
+                  }
+              }
           }
-        }
+          .searchable(text: $searchText)
       }
-      .searchable(text: $searchText)
-      .navigationTitle("Contacts")
-    }
+    
   }
 }
 
