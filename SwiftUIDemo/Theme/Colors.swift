@@ -78,8 +78,8 @@ extension Color {
 
   // Base Colors (inverted from light theme)
   static let darkBasePrimaryNormal = Color(hex: "#EDEEF1")
-  static let darkBasePrimaryLight = Color(hex: "#FFF")
-  static let darkBasePrimaryDark = Color(hex: "#DDD")
+  static let darkBasePrimaryLight = Color(hex: "#FFFFFF")
+  static let darkBasePrimaryDark = Color(hex: "#FFFFFF")
   static let darkBaseSecondaryNormal = Color(hex: "#7C7C7C")
   static let darkBaseSecondaryLight = Color(hex: "#ABABAB")
   static let darkBaseSecondaryDark = Color(hex: "#505050")
