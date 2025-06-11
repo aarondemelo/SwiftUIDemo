@@ -27,6 +27,56 @@ struct ContactsView: View {
     Contact(name: "Bob Ross"),
     Contact(name: "Charlie Puth"),
     Contact(name: "Carmen Sandiego"),
+
+    // Additional names
+    Contact(name: "Diana Prince"),
+    Contact(name: "Dwayne Johnson"),
+    Contact(name: "Dexter Morgan"),
+    Contact(name: "Eleanor Shellstrop"),
+    Contact(name: "Elon Musk"),
+    Contact(name: "Fiona Gallagher"),
+    Contact(name: "Fred Flintstone"),
+    Contact(name: "George Costanza"),
+    Contact(name: "Gina Linetti"),
+    Contact(name: "Harry Potter"),
+    Contact(name: "Harvey Specter"),
+    Contact(name: "Homer Simpson"),
+    Contact(name: "Isaac Newton"),
+    Contact(name: "Ivy League"),
+    Contact(name: "Jack Sparrow"),
+    Contact(name: "Jessica Jones"),
+    Contact(name: "Jim Halpert"),
+    Contact(name: "John Wick"),
+    Contact(name: "Kendall Roy"),
+    Contact(name: "Kim Possible"),
+    Contact(name: "Larry Page"),
+    Contact(name: "Lorelai Gilmore"),
+    Contact(name: "Michael Scott"),
+    Contact(name: "Monica Geller"),
+    Contact(name: "Nancy Drew"),
+    Contact(name: "Neo"),
+    Contact(name: "Olivia Benson"),
+    Contact(name: "Oprah Winfrey"),
+    Contact(name: "Phoebe Buffay"),
+    Contact(name: "Pikachu"),
+    Contact(name: "Quentin Tarantino"),
+    Contact(name: "Rachel Green"),
+    Contact(name: "Rick Sanchez"),
+    Contact(name: "Ron Swanson"),
+    Contact(name: "Samantha Carter"),
+    Contact(name: "Sheldon Cooper"),
+    Contact(name: "Sherlock Holmes"),
+    Contact(name: "Steve Jobs"),
+    Contact(name: "Tony Stark"),
+    Contact(name: "Tina Fey"),
+    Contact(name: "Uma Thurman"),
+    Contact(name: "Violet Baudelaire"),
+    Contact(name: "Walter White"),
+    Contact(name: "Will Smith"),
+    Contact(name: "Winston Bishop"),
+    Contact(name: "Xander Harris"),
+    Contact(name: "Yoda"),
+    Contact(name: "Zelda Fitzgerald"),
   ]
 
   var filteredSections: [SectionedContacts] {
@@ -46,7 +96,7 @@ struct ContactsView: View {
   }
 
   var body: some View {
-    VStack {
+    VStack(spacing: 0) {
       SheetTitleView(
         title: "Contacts",
         closeAction: {
@@ -57,18 +107,19 @@ struct ContactsView: View {
       List {
         ForEach(filteredSections) { section in
           Section(
-            header: Text(section.id).font(.headline).foregroundColor(.black).background(
-              Color(UIColor.systemGray5))
+            header: HStack {
+              Text(section.id)
+                .font(.headline)
+                .foregroundColor(.black)
+                .padding(.horizontal, 12)
+              Spacer()
+            }
+            .frame(maxWidth: .infinity, minHeight: 30)
+            .background(Color(UIColor.systemGray5))
           ) {
             ForEach(section.contacts) { contact in
               Text(contact.name)
-                .padding()
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .background(
-                  RoundedRectangle(cornerRadius: 4)
-                    .stroke(
-                      contact.id == selectedContact ? Color.purple : Color.clear, lineWidth: 1)
-                )
                 .onTapGesture {
 
                   NotificationCenter.default.post(
@@ -78,12 +129,16 @@ struct ContactsView: View {
                   )
                   didExplicitlySave = true
                   router.dismissSheet()
-                }
+                }.padding(.horizontal, 12)
+
             }
           }
         }
-      }
-      .searchable(text: $searchText)
+      }.listStyle(.plain)
+        .padding(.horizontal, -18)
+        .listSectionSpacing(0)
+        .listRowSeparator(Visibility.visible, edges: VerticalEdge.Set.all)
+        .searchable(text: $searchText)
     }.onDisappear {
 
       if !didExplicitlySave {
@@ -97,10 +152,11 @@ struct ContactsView: View {
 struct ContactsView_Previews: PreviewProvider {
 
   static let myRouterObject = AppRouter(initialTab: AppTab.events)
+  static let themeManager = ThemeManager()
 
   static var previews: some View {
     ContactsView()
       .environment(myRouterObject)
-
+      .environmentObject(themeManager)
   }
 }
