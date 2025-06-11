@@ -1,17 +1,3 @@
-//import SwiftUI
-
-//struct ComposeMessageView: View {
-//  @Environment(AppRouter.self) private var router
-//
-//  var message: Message?
-//
-//  var body: some View {
-//    Text("Compose Messages")
-//      .font(.title)
-//      .padding()
-//  }
-//}
-
 import SwiftUI
 
 struct ComposeMessageView: View {
@@ -30,11 +16,11 @@ struct ComposeMessageView: View {
       Spacer()
       // Spacer pushes the input field down
       // Input field
-      ZStack(alignment: .trailing) {
+      HStack {
 
         TextField("Type a message...", text: .constant("")).labelL1Semibold()
-          .textFieldStyle(.roundedBorder)
-          .padding(.vertical, 8)
+          .padding(.horizontal, 8)
+          .padding(.vertical, 12)
 
         Button(action: {
           print("Send tapped")
@@ -42,10 +28,18 @@ struct ComposeMessageView: View {
           Image(systemName: "paperplane.fill")
             .rotationEffect(.degrees(45))  //
             .foregroundColor(.black)
-        }
-      }.padding(.vertical, 6)
-        .padding(.horizontal, 12)
-        .background(Color(UIColor.systemBackground))
+        }.padding(.horizontal, 8)
+      }.background(
+        RoundedRectangle(cornerRadius: 4)
+          .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+          .background(
+            RoundedRectangle(cornerRadius: 20)
+              .fill(Color(UIColor.systemBackground))
+          )
+      )
+      .padding(.vertical, 6)
+      .padding(.horizontal, 12)
+      .background(Color(UIColor.systemBackground))
 
     }  // Padding for the input field row
     .padding(.bottom, 8)
