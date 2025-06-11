@@ -3,6 +3,7 @@ import SwiftUI
 
 struct HomeView: View {
   @State private var router = AppRouter(initialTab: .events)
+  @StateObject private var filterSettings = EventFilterSettings()
 
   var body: some View {
     TabView(selection: $router.selectedTab) {
@@ -25,7 +26,7 @@ struct HomeView: View {
       }
     }
     .environment(router)
-
+    .environmentObject(filterSettings)
   }
 
   @ViewBuilder
