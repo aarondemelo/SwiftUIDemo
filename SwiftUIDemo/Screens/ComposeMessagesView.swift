@@ -42,16 +42,6 @@ struct ComposeMessageView: View {
       .padding(.vertical, 6)
       .padding(.horizontal, 12)
       .background(Color(UIColor.systemBackground))
-      .onReceive(NotificationCenter.default.publisher(for: .selectedContactName)) { notification in
-        if let selectedName = notification.userInfo?["message"] as? String {
-          message = Message(avatar: URL(string: "about:blank")!, name: selectedName, message: "")
-        }
-      }
-      .onAppear {
-        if message == nil {
-          router.presentSheet(.openContacts)  // Open contacts when the view appears
-        }
-      }
 
     }  // Padding for the input field row
     .padding(.bottom, 8)
@@ -66,16 +56,16 @@ struct ComposeMessageView: View {
                 image
                   .resizable()
                   .aspectRatio(contentMode: .fit)
-                  .frame(width: 32, height: 32)
+                  .frame(width: 24, height: 24)
                   .shadow(radius: 5)
               } else if phase.error != nil {
-                Image(systemName: "photo")
+                Image(systemName: "person.crop.circle")
                   .resizable()
                   .aspectRatio(contentMode: .fit)
-                  .frame(width: 32, height: 32)
+                  .frame(width: 24, height: 24)
               } else {
                 ProgressView()
-                  .frame(width: 32, height: 32)
+                  .frame(width: 24, height: 24)
                   .background(Color.secondary.opacity(0.1))
               }
             }

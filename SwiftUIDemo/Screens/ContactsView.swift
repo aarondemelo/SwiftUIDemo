@@ -11,12 +11,13 @@ struct SectionedContacts: Identifiable {
 }
 
 struct ContactsView: View {
-  @Environment(AppRouter.self) private var router
+  @Environment(AppRouter.self) private var router  // Assuming AppRouter is defined
+  @Environment(\.dismiss) var dismiss  // New: Use environment dismiss for sheet
 
   @State private var searchText = ""
   @State private var selectedContact: UUID?
-  @State private var didExplicitlySave: Bool = false
 
+  // Dummy data as provided
   private var allContacts: [Contact] = [
     Contact(name: "Abraham Lincoln"),
     Contact(name: "Agnes Code"),
@@ -27,8 +28,6 @@ struct ContactsView: View {
     Contact(name: "Bob Ross"),
     Contact(name: "Charlie Puth"),
     Contact(name: "Carmen Sandiego"),
-
-    // Additional names
     Contact(name: "Diana Prince"),
     Contact(name: "Dwayne Johnson"),
     Contact(name: "Dexter Morgan"),
@@ -96,56 +95,59 @@ struct ContactsView: View {
   }
 
   var body: some View {
-    VStack(spacing: 0) {
-      SheetTitleView(
-        title: "Contacts",
-        closeAction: {
-          router.dismissSheet()
-        }
-      ).padding(.vertical)
-
-      List {
-        ForEach(filteredSections) { section in
-          Section(
-            header: HStack {
-              Text(section.id)
-                .font(.headline)
-                .foregroundColor(.black)
-                .padding(.horizontal, 12)
-              Spacer()
-            }
-            .frame(maxWidth: .infinity, minHeight: 30)
-            .background(Color(UIColor.systemGray5))
-          ) {
-            ForEach(section.contacts) { contact in
-              Text(contact.name)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .onTapGesture {
-
-                  NotificationCenter.default.post(
-                    name: .selectedContactName,
-                    object: nil,
-                    userInfo: ["message": contact.name, "timestamp": Date()]
-                  )
-                  didExplicitlySave = true
-                  router.dismissSheet()
-                }.padding(.horizontal, 12)
-
+    NavigationStack {  // Use NavigationStack for modern navigation and toolbar capabilities
+      VStack(spacing: 0) {
+        // SheetTitleView is now replaced by toolbar items
+        List {
+          ForEach(filteredSections) { section in
+            Section(
+              header: HStack {
+                Text(section.id)
+                  .font(.headline)
+                  .foregroundColor(.black)
+                  .padding(.horizontal, 12)
+                Spacer()
+              }
+              .frame(maxWidth: .infinity, minHeight: 30)
+              .background(Color(UIColor.systemGray5))
+            ) {
+              ForEach(section.contacts) { contact in
+                Text(contact.name)
+                  .frame(maxWidth: .infinity, alignment: .leading)
+                  .onTapGesture {
+                    NotificationCenter.default.post(
+                      name: .selectedContactName,
+                      object: nil,
+                      userInfo: ["message": contact.name, "timestamp": Date()]
+                    )
+                    // Using @Environment(\.dismiss) directly for dismissing the sheet
+                    dismiss()
+                  }
+                  .padding(.horizontal, 12)
+              }
             }
           }
         }
-      }.listStyle(.plain)
-        .padding(.horizontal, -18)
+        .listStyle(.plain)
+        .padding(.horizontal, -18)  // Remove default list padding
         .listSectionSpacing(0)
-        .listRowSeparator(Visibility.visible, edges: VerticalEdge.Set.all)
-        .searchable(text: $searchText)
-    }.onDisappear {
+        .listRowSeparator(Visibility.visible, edges: .all)
+      }
+      .navigationTitle("Contacts")  // Set the title here
+      .navigationBarTitleDisplayMode(.inline)  // Makes title appear inline at the top
+      .toolbar {
+        // MARK: - Close Button (Trailing)
+        ToolbarItem(placement: .topBarLeading) {
 
-      if !didExplicitlySave {
-        router.popNavigation(for: .messages)
+          Button(action: {
+            router.dismissSheet()  // Use router to dismiss the sheet if needed
+          }) {
+            Image(systemName: "xmark")
+          }
+        }
       }
     }
-
+    .searchable(text: $searchText)  // Apply searchable to the NavigationStack
   }
 }
 

@@ -37,9 +37,14 @@ struct MessagesView: View {
     .toolbar {
       ToolbarItem(placement: .topBarTrailing) {
         ToolbarButton(iconName: "NewMessage") {
-          router.navigateTo(Destination.openMessage(message: nil))
+          router.presentSheet(.openContacts)
         }
 
+      }
+    }.onReceive(NotificationCenter.default.publisher(for: .selectedContactName)) { notification in
+      if let selectedName = notification.userInfo?["message"] as? String {
+        let message = Message(avatar: URL(string: "about:blank")!, name: selectedName, message: "")
+        router.navigateTo(Destination.openMessage(message: message))
       }
     }
     .task {
