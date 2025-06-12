@@ -11,6 +11,7 @@ struct Theme: Equatable {
   let secondaryLight: Color
   let tertiaryDark: Color
   let tertiaryLight: Color
+  let buttonDisabledBackground: Color
   let appColorScheme: AppColorScheme
 }
 
@@ -47,6 +48,7 @@ extension Theme {
     secondaryLight: .baseSecondaryLight,
     tertiaryDark: .baseTertiaryDark,
     tertiaryLight: .baseTertiaryLight,
+    buttonDisabledBackground: .baseTertiaryNormal,
     appColorScheme: .light
   )
   static let dark = Theme(
@@ -56,6 +58,7 @@ extension Theme {
     secondaryLight: .darkBaseSecondaryLight,
     tertiaryDark: .darkBaseTertiaryDark,
     tertiaryLight: .darkBaseTertiaryLight,
+    buttonDisabledBackground: Color.darkBaseSecondaryNormal,
     appColorScheme: .dark
   )
 }

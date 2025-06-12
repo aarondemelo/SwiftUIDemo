@@ -106,7 +106,7 @@ struct EventsFilterView: View {
                 Text(tag).buttonB3Semibold(color: themeManager.current.text)
                   .padding(.horizontal, 12)
                   .padding(.vertical, 8)
-                  .background(Capsule().fill(Color.baseTertiaryNormal))
+                  .background(Capsule().fill(themeManager.current.buttonDisabledBackground))
               }
             }
           }
