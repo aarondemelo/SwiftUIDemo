@@ -56,9 +56,27 @@ class CatalogueClient {
     }
 
     tempEvents = tempEvents.filter { event in
+      filterSettings.eventTimeOfDay.isEmpty
+        || filterSettings.eventTimeOfDay.contains(event.timeOfDay)
+    }
+
+    tempEvents = tempEvents.filter { event in
       let price = Float(event.price)
       return price >= filterSettings.selectedRange.lowerBound
         && price <= filterSettings.selectedRange.upperBound
+    }
+
+    tempEvents = tempEvents.sorted { lhs, rhs in
+      switch filterSettings.sortOrder {
+      case .newestFirst:
+        return lhs.dateTime > rhs.dateTime
+      case .oldestFirst:
+        return lhs.dateTime < rhs.dateTime
+      case .highestPriceFirst:
+        return lhs.price > rhs.price
+      case .lowestPriceFirst:
+        return lhs.price < rhs.price
+      }
     }
 
     self.filteredEvents = tempEvents

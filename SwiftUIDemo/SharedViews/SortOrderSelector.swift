@@ -2,7 +2,7 @@ import SwiftUI
 
 struct SortOrderSelectorView: View {
 
-  @State private var selectedSortOrder: SortOrder = .newestFirst
+  @Binding var selectedSortOrder: SortOrder
 
   // Environment object for theme management (optional, but good practice if integrated)
   @EnvironmentObject var themeManager: ThemeManager  // Assuming this is set up in a parent view
@@ -46,9 +46,17 @@ struct SortOrderSelectorView: View {
 // MARK: - Preview Provider
 /// Provides a preview of the SortOrderSelectorView in Xcode's canvas.
 struct SortOrderSelectorView_Previews: PreviewProvider {
+  struct PreviewWrapper: View {
+    @State private var currentSortOrder: SortOrder = .newestFirst
+
+    var body: some View {
+      SortOrderSelectorView(selectedSortOrder: $currentSortOrder)
+        .environmentObject(ThemeManager(colorScheme: .light))  // Provide a ThemeManager for the preview
+        .padding()
+    }
+  }
   static var previews: some View {
-    SortOrderSelectorView()
-      // Inject a ThemeManager for the preview to work correctly with EnvironmentObject
-      .environmentObject(ThemeManager(colorScheme: .dark))
+    PreviewWrapper()
+      .previewLayout(.sizeThatFits)
   }
 }

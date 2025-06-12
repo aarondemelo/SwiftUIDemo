@@ -47,7 +47,8 @@ struct EventsFilterView: View {
           }
         ).padding(.vertical)
 
-        SortOrderSelectorView().padding()
+        SortOrderSelectorView(selectedSortOrder: $filterSettings.sortOrder)
+          .padding(.horizontal)
 
         VStack(alignment: .leading, spacing: 20) {
           Text("Event Type").headingH6Medium()
