@@ -16,7 +16,7 @@ struct SwiftUIDemoApp: App {
     // Use an initializer to create themeManager with the initial colorScheme
     // Note: At this point, colorScheme might still be .light in previews or very early app launch.
     // The .onChange and .onAppear (if you add it) will ensure it's correct.
-    _themeManager = StateObject(wrappedValue: ThemeManager(colorScheme: .light))  // Placeholder, updated by onAppear/onChange
+    _themeManager = StateObject(wrappedValue: ThemeManager())  // Placeholder, updated by onAppear/onChange
   }
 
   var body: some Scene {
@@ -32,11 +32,6 @@ struct SwiftUIDemoApp: App {
         }
       }
       .background(themeManager.current.background)
-      .onChange(of: colorScheme) { oldValue, newValue in
-        print("New Color Scheme \(newValue) Old value \(oldValue)")
-        // You can use 'newValue' directly here, or 'oldValue' if needed.
-        themeManager.updateTheme(for: newValue)
-      }
       .environment(\.appState, $appState)
       .environment(catalogueClient)
       .environmentObject(themeManager)

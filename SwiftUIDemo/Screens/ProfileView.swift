@@ -133,6 +133,34 @@ struct ProfileView: View {
           .frame(alignment: .leading)
         }
 
+        HStack {
+          // Text label for the theme toggle
+          Text("Dark Mode")
+            .font(Font.custom("Inter", size: 15))
+            .kerning(0.5)
+            .foregroundColor(.black)
+            .frame(maxWidth: .infinity, alignment: .topLeading)
+          // Adjust text color based on the current theme from ThemeManager
+
+          Spacer()  // Pushes the toggle to the right
+
+          Toggle(
+            isOn: Binding(
+              get: { self.themeManager.current.appColorScheme == .dark },  // When Toggle reads its state
+              set: { newValue in  // When Toggle writes its new state
+                self.themeManager.current = newValue ? Theme.dark : Theme.light  // Update ThemeManager's theme
+              }
+            )
+          ) {
+            // Empty label for the toggle as the Text("Dark Mode") serves as the visual label
+            EmptyView()
+          }
+          .toggleStyle(SwitchToggleStyle(tint: .accentColor)).scaleEffect(0.85).frame(
+            alignment: .trailing
+          ).padding(.vertical, 0).padding(.trailing, -18)  // Use a standard
+        }
+        .padding()  // Padding for the HStack content
+
         Button(action: {
           appState.wrappedValue = .unauthenticated
         }) {
@@ -161,7 +189,7 @@ struct ProfileView: View {
 
 struct ProfileView_Previews: PreviewProvider {
 
-  static let themeManager = ThemeManager(colorScheme: .dark)
+  static let themeManager = ThemeManager()
   static let myRouterObject = AppRouter(initialTab: AppTab.events)
 
   static var previews: some View {

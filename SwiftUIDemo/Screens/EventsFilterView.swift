@@ -139,7 +139,7 @@ struct EventsFilterView: View {
 
 struct EventsFilterView_Previews: PreviewProvider {
 
-  static let themeManager = ThemeManager(colorScheme: .dark)
+  static let themeManager = ThemeManager()
   static let myRouterObject = AppRouter(initialTab: AppTab.events)
   static let eventFilter = EventFilterSettings()
 

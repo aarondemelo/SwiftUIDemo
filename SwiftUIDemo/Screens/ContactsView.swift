@@ -167,7 +167,7 @@ struct ContactsView: View {
 struct ContactsView_Previews: PreviewProvider {
 
   static let myRouterObject = AppRouter(initialTab: AppTab.events)
-  static let themeManager = ThemeManager(colorScheme: .light)
+  static let themeManager = ThemeManager()
 
   static var previews: some View {
     ContactsView()

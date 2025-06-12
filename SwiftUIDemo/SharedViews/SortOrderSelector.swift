@@ -51,7 +51,7 @@ struct SortOrderSelectorView_Previews: PreviewProvider {
 
     var body: some View {
       SortOrderSelectorView(selectedSortOrder: $currentSortOrder)
-        .environmentObject(ThemeManager(colorScheme: .light))  // Provide a ThemeManager for the preview
+        .environmentObject(ThemeManager())  // Provide a ThemeManager for the preview
         .padding()
     }
   }

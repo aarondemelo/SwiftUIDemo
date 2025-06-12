@@ -184,7 +184,7 @@ struct ImagePicker: UIViewControllerRepresentable {
 }
 
 struct ProfileEditView_Previews: PreviewProvider {
-  static let themeManager = ThemeManager(colorScheme: .dark)
+  static let themeManager = ThemeManager()
   static var dummyUser = User(
     firstName: "Amanda",
     lastName: "Doe",

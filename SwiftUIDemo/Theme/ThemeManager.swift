@@ -1,5 +1,9 @@
 import SwiftUI
 
+enum AppColorScheme {
+  case light, dark
+}
+
 struct Theme: Equatable {
   let background: Color
   let text: Color
@@ -7,24 +11,28 @@ struct Theme: Equatable {
   let secondaryLight: Color
   let tertiaryDark: Color
   let tertiaryLight: Color
+  let appColorScheme: AppColorScheme
 }
 
 class ThemeManager: ObservableObject, Equatable {
   @Published var current: Theme
 
-  // Initialize with system appearance
-  init(colorScheme: ColorScheme) {
-    self.current = (colorScheme == .light) ? .light : .dark
+  init(launchTheme: Theme = Theme.light) {
+    current = launchTheme  // Default theme
   }
 
   static func == (lhs: ThemeManager, rhs: ThemeManager) -> Bool {
-    return lhs.current == rhs.current
+    return lhs.current.appColorScheme == rhs.current.appColorScheme
   }
 
-  func updateTheme(for scheme: ColorScheme) {
-    let newTheme: Theme = (scheme == .light) ? .light : .dark
-    if self.current != newTheme {
-      self.current = newTheme
+  func updateTheme(for scheme: AppColorScheme) {
+    if self.current.appColorScheme != scheme {
+      switch scheme {
+      case .light:
+        self.current = Theme.light
+      case .dark:
+        self.current = Theme.dark
+      }
       print("ThemeManager: Updated theme to \(scheme == .light ? "light" : "dark")")
     }
   }
@@ -38,7 +46,8 @@ extension Theme {
     primary: .brandPrimaryNormal,
     secondaryLight: .baseSecondaryLight,
     tertiaryDark: .baseTertiaryDark,
-    tertiaryLight: .baseTertiaryLight
+    tertiaryLight: .baseTertiaryLight,
+    appColorScheme: .light
   )
   static let dark = Theme(
     background: .darkBackground,
@@ -46,6 +55,7 @@ extension Theme {
     primary: .darkBrandPrimaryNormal,
     secondaryLight: .darkBaseSecondaryLight,
     tertiaryDark: .darkBaseTertiaryDark,
-    tertiaryLight: .darkBaseTertiaryLight
+    tertiaryLight: .darkBaseTertiaryLight,
+    appColorScheme: .dark
   )
 }
