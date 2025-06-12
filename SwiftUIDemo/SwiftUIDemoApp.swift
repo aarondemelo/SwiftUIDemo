@@ -35,6 +35,7 @@ struct SwiftUIDemoApp: App {
       .environment(\.appState, $appState)
       .environment(catalogueClient)
       .environmentObject(themeManager)
+      .environment(\.colorScheme, themeManager.current.appColorScheme == .light ? .light : .dark)
     }
   }
 }
