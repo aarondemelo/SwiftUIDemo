@@ -103,4 +103,21 @@ extension View {
       ))
   }
 
+  func subTitleS1Regular(
+    color: Color = Color.basePrimaryDark,
+    kerning: CGFloat? = nil,
+    design: Font.Design? = nil,
+    backgroundColor: Color? = nil
+  ) -> some View {
+    self.modifier(
+      BuilderTextStyle(
+        size: 15,  // Similar to .largeTitle
+        weight: .regular,
+        color: color,
+        kerning: kerning,
+        design: design,
+        backgroundColor: backgroundColor
+      ))
+  }
+
 }

@@ -4,8 +4,8 @@ import SwiftUI
 @Observable
 class EventFilterSettings {
   var selectedNeighbourhoods: Set<String> = []
-  var priceRange: ClosedRange<Int> = 0...180
-  var selectedRange: ClosedRange<Float> = 20...80
+  var priceRange: ClosedRange<Double> = 0...180
+  var selectedRange: ClosedRange<Double> = 20...80
   var eventTimeOfDay: Set<TimeOfDay> = []
   var sortOrder: SortOrder = .newestFirst
 
@@ -17,7 +17,7 @@ class EventFilterSettings {
 
   func resetFilters() {
     selectedNeighbourhoods = []
-    selectedRange = Float(priceRange.lowerBound)...Float(priceRange.upperBound)  // Reset to full default price range
+    selectedRange = Double(priceRange.lowerBound)...Double(priceRange.upperBound)  // Reset to full default price range
     eventTimeOfDay = []
     sortOrder = .newestFirst
   }

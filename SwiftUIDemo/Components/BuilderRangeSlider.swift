@@ -1,118 +1,226 @@
 import SwiftUI
 
-struct BuilderRangeSliderView: View {
-  let currentValue: Binding<ClosedRange<Float>>
-  let sliderBounds: ClosedRange<Int>
+struct ItsukiSlider<S1: ShapeStyle, S2: ShapeStyle, T1: View, T2: View>: View {
+  private var fillBackground: S1
+  private var fillTrack: S2
+  private var firstThumb: T1?
+  private var secondThumb: T2?
 
-  public init(value: Binding<ClosedRange<Float>>, bounds: ClosedRange<Int>) {
-    self.currentValue = value
-    self.sliderBounds = bounds
-  }
+  private var barStyle: (height: Double?, cornerRadius: Double)
+  private var bounds: ClosedRange<Double>
+  private var step: Double?
+  @Binding private var value: ClosedRange<Double>
 
   var body: some View {
-    GeometryReader { geomentry in
-      sliderView(sliderSize: geomentry.size)
+
+    GeometryReader { geometry in
+      let frame = geometry.frame(in: .local)
+      RoundedRectangle(cornerRadius: barStyle.cornerRadius)
+        .fill(fillBackground)
+
+      ThumbView(
+        value: $value, in: bounds, step: step, maxWidth: frame.width,
+        cornerRadius: barStyle.cornerRadius, fill: fillTrack,
+        firstThumb: {
+          if let firstThumb = firstThumb { firstThumb } else { defaultThumb }
+        },
+        secondThumb: {
+          if let secondThumb = secondThumb { secondThumb } else { defaultThumb }
+        })
     }
+    .frame(height: barStyle.height == nil ? nil : barStyle.height!)
   }
 
-  @ViewBuilder private func sliderView(sliderSize: CGSize) -> some View {
-    let sliderViewYCenter = sliderSize.height / 2
-    ZStack {
-      RoundedRectangle(cornerRadius: 2)
-        .fill(Color.gray.opacity(0.3))
-        .frame(height: 4)
-      ZStack {
-        let sliderBoundDifference = sliderBounds.count
-        let stepWidthInPixel = CGFloat(sliderSize.width) / CGFloat(sliderBoundDifference)
+  private var defaultThumb: some View {
+    Circle()
+      .fill(Color.brandPrimaryNormal)
+      .frame(width: 24, height: 24)
+      .shadow(color: .black.opacity(0.3), radius: 3, x: 1, y: 1)
+  }
 
-        // Calculate Left Thumb initial position
-        let leftThumbLocation: CGFloat =
-          currentValue.wrappedValue.lowerBound == Float(sliderBounds.lowerBound)
-          ? 0
-          : CGFloat(currentValue.wrappedValue.lowerBound - Float(sliderBounds.lowerBound))
-            * stepWidthInPixel
+}
 
-        // Calculate right thumb initial position
-        let rightThumbLocation = CGFloat(currentValue.wrappedValue.upperBound) * stepWidthInPixel
-
-        // Path between both handles
-        lineBetweenThumbs(
-          from: .init(x: leftThumbLocation, y: sliderViewYCenter),
-          to: .init(x: rightThumbLocation, y: sliderViewYCenter))
-
-        // Left Thumb Handle
-        let leftThumbPoint = CGPoint(x: leftThumbLocation, y: sliderViewYCenter)
-        thumbView(position: leftThumbPoint, value: Float(currentValue.wrappedValue.lowerBound))
-          .highPriorityGesture(
-            DragGesture().onChanged { dragValue in
-
-              let dragLocation = dragValue.location
-              let xThumbOffset = min(max(0, dragLocation.x), sliderSize.width)
-
-              let newValue = Float(sliderBounds.lowerBound) + Float(xThumbOffset / stepWidthInPixel)
-
-              // Stop the range thumbs from colliding each other
-              if newValue < currentValue.wrappedValue.upperBound {
-                currentValue.wrappedValue = newValue...currentValue.wrappedValue.upperBound
-              }
-            })
-
-        // Right Thumb Handle
-        thumbView(
-          position: CGPoint(x: rightThumbLocation, y: sliderViewYCenter),
-          value: currentValue.wrappedValue.upperBound
-        )
-        .highPriorityGesture(
-          DragGesture().onChanged { dragValue in
-            let dragLocation = dragValue.location
-            let xThumbOffset = min(
-              max(CGFloat(leftThumbLocation), dragLocation.x), sliderSize.width)
-
-            var newValue = Float(xThumbOffset / stepWidthInPixel)  // convert back the value bound
-            newValue = min(newValue, Float(sliderBounds.upperBound))
-
-            // Stop the range thumbs from colliding each other
-            if newValue > currentValue.wrappedValue.lowerBound {
-              currentValue.wrappedValue = currentValue.wrappedValue.lowerBound...newValue
-            }
-          })
+extension ItsukiSlider where T1 == Never, T2 == Never, S1 == Color, S2 == Color {
+  init<V>(
+    value: Binding<ClosedRange<V>>, in bounds: ClosedRange<V>, step: V.Stride? = nil,
+    barStyle: (height: Double?, cornerRadius: Double) = (nil, 8)
+  ) where V: BinaryFloatingPoint, V.Stride: BinaryFloatingPoint {
+    let bindingDouble = Binding<ClosedRange<Double>>(
+      get: { Double(value.wrappedValue.lowerBound)...Double(value.wrappedValue.upperBound) },
+      set: {
+        value.wrappedValue = V($0.lowerBound)...V($0.upperBound)
       }
-    }
-  }
-
-  @ViewBuilder func lineBetweenThumbs(from: CGPoint, to: CGPoint) -> some View {
-    Path { path in
-      path.move(to: from)
-      path.addLine(to: to)
-    }.stroke(Color.gray.opacity(0.3), lineWidth: 4)
-  }
-
-  @ViewBuilder func thumbView(position: CGPoint, value: Float) -> some View {
-    ZStack {
-
-      Circle()
-        .frame(width: 24, height: 24)
-        .foregroundColor(.yellow)
-        .shadow(color: Color.black.opacity(0.16), radius: 8, x: 0, y: 2)
-        .contentShape(Rectangle())
-    }
-    .position(x: position.x, y: position.y)
+    )
+    self._value = bindingDouble
+    self.bounds = Double(bounds.lowerBound)...Double(bounds.upperBound)
+    self.step = step == nil ? nil : Double.Stride(step!)
+    self.barStyle = barStyle
+    self.fillBackground = .gray.opacity(0.2)
+    self.fillTrack = .gray.opacity(0.3)
   }
 }
 
-struct RangeSliderView_Previews: PreviewProvider {
-  struct PreviewWrapper: View {
-    @State private var selectedRange: ClosedRange<Float> = 20...80
+extension ItsukiSlider {
+  init<V>(
+    value: Binding<ClosedRange<V>>, in bounds: ClosedRange<V>, step: V.Stride? = nil,
+    barStyle: (height: Double?, cornerRadius: Double), fillBackground: S1, fillTrack: S2,
+    @ViewBuilder firstThumb: () -> T1, @ViewBuilder secondThumb: () -> T2
+  ) where V: BinaryFloatingPoint, V.Stride: BinaryFloatingPoint {
+    let bindingDouble = Binding<ClosedRange<Double>>(
+      get: { Double(value.wrappedValue.lowerBound)...Double(value.wrappedValue.upperBound) },
+      set: {
+        value.wrappedValue = V($0.lowerBound)...V($0.upperBound)
+      }
+    )
+    self._value = bindingDouble
+    self.bounds = Double(bounds.lowerBound)...Double(bounds.upperBound)
+    self.step = step == nil ? nil : Double.Stride(step!)
+    self.barStyle = barStyle
+    self.fillBackground = fillBackground
+    self.fillTrack = fillTrack
+    self.firstThumb = firstThumb()
+    self.secondThumb = secondThumb()
+  }
+}
 
-    var body: some View {
-      BuilderRangeSliderView(value: $selectedRange, bounds: 0...100)
-      Spacer()
-    }
+private struct ThumbView<S: ShapeStyle, T1: View, T2: View>: View {
+
+  private var fillStyle: S
+  private var firstThumb: T1
+  private var secondThumb: T2
+
+  private var maxWidth: Double
+  private var cornerRadius: Double
+  private var bounds: ClosedRange<Double>
+  private var step: Double?
+
+  @Binding private var value: ClosedRange<Double>
+  @State private var previousWidth: Double = 0
+  @State private var firstThumbWidth: Double = 0
+  @State private var secondThumbWidth: Double = 0
+  @State private var isDragging: Bool = false
+
+  @State private var positionX: CGFloat = 0
+
+  var body: some View {
+    let start = calculateTrackStart()
+    let width = calculateTrackWidth()
+
+    RoundedRectangle(cornerRadius: cornerRadius)
+      .fill(fillStyle)
+      .overlay(
+        firstThumb
+          .gesture(
+            DragGesture(coordinateSpace: .global)
+              .onChanged { action in
+                isDragging = true
+                let newWidth = previousWidth - action.translation.width
+                let percentage = max(min(newWidth / maxWidth, 1), 0)
+                let valueDifference = percentageToValue(percentage)
+                self.value =
+                  max(
+                    min(roundToStep(value.upperBound - valueDifference), self.value.upperBound),
+                    self.bounds.lowerBound)...self.value.upperBound
+              }
+              .onEnded { _ in
+                isDragging = false
+                previousWidth = width
+              }
+          )
+          .overlay(content: {
+            GeometryReader { geometry in
+              DispatchQueue.main.async {
+                self.firstThumbWidth = geometry.size.width
+              }
+              return Color.clear
+            }
+          })
+          .offset(x: -firstThumbWidth / 2),
+        alignment: .leading
+      )
+      .overlay(
+        secondThumb
+          .gesture(
+            DragGesture(coordinateSpace: .global)
+              .onChanged { action in
+                isDragging = true
+                let newWidth = previousWidth + action.translation.width
+                let percentage = max(min(newWidth / maxWidth, 1), 0)
+                let valueDifference = percentageToValue(percentage)
+                self.value =
+                  self.value
+                  .lowerBound...min(
+                    max(roundToStep(valueDifference + value.lowerBound), self.value.lowerBound),
+                    self.bounds.upperBound)
+              }
+              .onEnded { _ in
+                isDragging = false
+                previousWidth = width
+              }
+          )
+          .overlay(content: {
+            GeometryReader { geometry in
+              DispatchQueue.main.async {
+                self.secondThumbWidth = geometry.size.width
+              }
+              return Color.clear
+            }
+          })
+          .offset(x: secondThumbWidth / 2),
+        alignment: .trailing
+      )
+      .frame(width: width)
+      .offset(x: start)
+      .onAppear {
+        self.previousWidth = calculateTrackWidth()
+      }
+      .onChange(
+        of: value,
+        {
+          guard !isDragging else { return }
+          self.previousWidth = calculateTrackWidth()
+        })
   }
 
-  static var previews: some View {
-    PreviewWrapper()
-      .previewLayout(.sizeThatFits)
-      .padding()
+  private func calculateTrackWidth() -> Double {
+    maxWidth * ((value.upperBound - value.lowerBound) / (bounds.upperBound - bounds.lowerBound))
+  }
+
+  private func calculateTrackStart() -> Double {
+    maxWidth * ((value.lowerBound - bounds.lowerBound) / (bounds.upperBound - bounds.lowerBound))
+  }
+
+  private func percentageToValue(_ percentage: Double) -> Double {
+    (bounds.upperBound - bounds.lowerBound) * percentage
+  }
+
+  func roundToStep(_ value: Double) -> Double {
+    guard let step = step else { return value }
+    let diff = value - bounds.lowerBound
+    let remainder = diff.remainder(dividingBy: step)
+    let new =
+      if abs(remainder - step) > remainder {
+        value - remainder
+      } else {
+        value + (step - remainder)
+      }
+    return min(max(new, bounds.lowerBound), bounds.upperBound)
+  }
+}
+
+extension ThumbView {
+  init(
+    value: Binding<ClosedRange<Double>>, in bounds: ClosedRange<Double>, step: Double.Stride?,
+    maxWidth: Double, cornerRadius: Double, fill: S, @ViewBuilder firstThumb: () -> T1,
+    @ViewBuilder secondThumb: () -> T2
+  ) {
+    self._value = value
+    self.bounds = bounds
+    self.step = step
+    self.cornerRadius = cornerRadius
+    self.fillStyle = fill
+    self.maxWidth = maxWidth
+    self.firstThumb = firstThumb()
+    self.secondThumb = secondThumb()
   }
 }

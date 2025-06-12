@@ -61,7 +61,7 @@ class CatalogueClient {
     }
 
     tempEvents = tempEvents.filter { event in
-      let price = Float(event.price)
+      let price = Double(event.price)
       return price >= filterSettings.selectedRange.lowerBound
         && price <= filterSettings.selectedRange.upperBound
     }
@@ -120,9 +120,20 @@ extension CatalogueClient {
 
     let loaded: [Event] = try await loadJSONThrows(from: "EventsResponse")
     self.allEvents = loaded
-    self.applyFilters()  // Apply filters immediately after loading
+    self.applyFilters()
 
-    // Restart observation after changes are complete
+    let allCities: Set<String> = loaded.reduce(into: Set<String>()) { result, event in
+      result.formUnion(event.neighbourhoods)
+    }
+
+    let prices = loaded.map(\.price)
+    let minPrice = prices.min() ?? 0
+    let maxPrice = prices.max() ?? 0
+
+    filterSettings.availableNeighbourhoods = Array(allCities).sorted()
+    filterSettings.priceRange = Double(minPrice)...Double(maxPrice)
+    filterSettings.selectedRange = Double(minPrice)...Double(maxPrice)
+
     observeFilterChanges()
 
     return self.filteredEvents

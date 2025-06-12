@@ -113,14 +113,21 @@ struct EventsFilterView: View {
         .padding(.horizontal)
 
         VStack(alignment: .leading, spacing: 20) {
+
           HStack {
             Text("Price").headingH6Medium().padding(.bottom, 8)
             Spacer()
+            Text(
+              "\(Int(filterSettings.selectedRange.lowerBound))$-\(Int(filterSettings.selectedRange.upperBound))$"
+            ).subTitleS1Regular().padding(.bottom, 8)
+
           }
 
-          BuilderRangeSliderView(
-            value: $filterSettings.selectedRange, bounds: filterSettings.priceRange
-          ).frame(height: 20)
+          ItsukiSlider(
+            value: $filterSettings.selectedRange, in: filterSettings.priceRange, step: 2,
+            barStyle: (height: 6, cornerRadius: 6)
+          )
+          .frame(height: 12)
 
         }.padding(.horizontal)
 
