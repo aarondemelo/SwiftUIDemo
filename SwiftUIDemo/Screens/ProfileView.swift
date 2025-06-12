@@ -161,7 +161,7 @@ struct ProfileView: View {
 
 struct ProfileView_Previews: PreviewProvider {
 
-  static let themeManager = ThemeManager()
+  static let themeManager = ThemeManager(colorScheme: .dark)
   static let myRouterObject = AppRouter(initialTab: AppTab.events)
 
   static var previews: some View {

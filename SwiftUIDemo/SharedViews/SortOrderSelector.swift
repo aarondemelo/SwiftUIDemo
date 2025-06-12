@@ -49,6 +49,6 @@ struct SortOrderSelectorView_Previews: PreviewProvider {
   static var previews: some View {
     SortOrderSelectorView()
       // Inject a ThemeManager for the preview to work correctly with EnvironmentObject
-      .environmentObject(ThemeManager())
+      .environmentObject(ThemeManager(colorScheme: .dark))
   }
 }

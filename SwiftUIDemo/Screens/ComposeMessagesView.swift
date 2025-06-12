@@ -28,8 +28,7 @@ struct ComposeMessageView: View {
           print("Send tapped")
         }) {
           Image(systemName: "paperplane.fill")
-            .rotationEffect(.degrees(45))  //
-            .foregroundColor(.black)
+            .rotationEffect(.degrees(45))
         }.padding(.horizontal, 8)
       }.background(
         RoundedRectangle(cornerRadius: 4)
