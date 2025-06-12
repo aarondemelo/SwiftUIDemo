@@ -16,6 +16,7 @@ struct ContactsView: View {
 
   @State private var searchText = ""
   @State private var selectedContact: UUID?
+  @EnvironmentObject var themeManager: ThemeManager
 
   // Dummy data as provided
   private var allContacts: [Contact] = [
@@ -95,50 +96,62 @@ struct ContactsView: View {
   }
 
   var body: some View {
-    NavigationStack {  // Use NavigationStack for modern navigation and toolbar capabilities
-      VStack(spacing: 0) {
-        // SheetTitleView is now replaced by toolbar items
-        List {
+    NavigationStack {
+      ScrollView {
+        VStack(spacing: 0) {
           ForEach(filteredSections) { section in
-            Section(
-              header: HStack {
-                Text(section.id)
-                  .font(.headline)
-                  .foregroundColor(.black)
-                  .padding(.horizontal, 12)
-                Spacer()
-              }
-              .frame(maxWidth: .infinity, minHeight: 30)
-              .background(Color(UIColor.systemGray5))
-            ) {
+            VStack(alignment: .leading, spacing: 0) {
+              Text(section.id)
+            }
+            .padding(.leading, 16)
+            .padding(.trailing, 8)
+            .padding(.vertical, 8)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(Color(red: 0.87, green: 0.87, blue: 0.87))
+            //              .background(themeManager.current.tertiaryDark)
+
+            VStack(spacing: 0) {
               ForEach(section.contacts) { contact in
-                Text(contact.name)
-                  .frame(maxWidth: .infinity, alignment: .leading)
-                  .onTapGesture {
-                    NotificationCenter.default.post(
-                      name: .selectedContactName,
-                      object: nil,
-                      userInfo: ["message": contact.name, "timestamp": Date()]
-                    )
-                    // Using @Environment(\.dismiss) directly for dismissing the sheet
-                    dismiss()
+                HStack(alignment: .center, spacing: 0) {
+                  HStack(alignment: .center, spacing: 8) {
+                    // Paragraph/P1 Regular
+                    Text(contact.name)
+                      .font(Font.custom("Inter", size: 15))
+                      .kerning(0.5)
+                      .foregroundColor(
+                        themeManager.current.text
+                      )
+                      .frame(maxWidth: .infinity, alignment: .topLeading)
                   }
-                  .padding(.horizontal, 12)
+                  .padding(.horizontal, 16)
+                  .padding(.vertical, 20)
+                  .frame(maxWidth: .infinity, minHeight: 56, maxHeight: 56, alignment: .leading)
+                }
+                .padding(0).frame(maxWidth: .infinity, alignment: .leading)
+                .background(Color.white)
+                //                  .background(themeManager.current.tertiaryLight)
+                .overlay(alignment: .bottom) {
+                  Rectangle()
+                    .frame(height: 0.5)  // Adjust thickness as needed
+                    .foregroundColor(.gray.opacity(0.4))  // Adjust color and opacity as needed
+                }
+                .onTapGesture {
+                  NotificationCenter.default.post(
+                    name: .selectedContactName,
+                    object: nil,
+                    userInfo: ["message": contact.name, "timestamp": Date()]
+                  )
+                  dismiss()
+                }
               }
             }
           }
         }
-        .listStyle(.plain)
-        .padding(.horizontal, -18)  // Remove default list padding
-        .listSectionSpacing(0)
-        .listRowSeparator(Visibility.visible, edges: .all)
       }
       .navigationTitle("Contacts")  // Set the title here
       .navigationBarTitleDisplayMode(.inline)  // Makes title appear inline at the top
       .toolbar {
-        // MARK: - Close Button (Trailing)
         ToolbarItem(placement: .topBarLeading) {
-
           Button(action: {
             router.dismissSheet()  // Use router to dismiss the sheet if needed
           }) {
@@ -154,7 +167,7 @@ struct ContactsView: View {
 struct ContactsView_Previews: PreviewProvider {
 
   static let myRouterObject = AppRouter(initialTab: AppTab.events)
-  static let themeManager = ThemeManager(colorScheme: .dark)
+  static let themeManager = ThemeManager(colorScheme: .light)
 
   static var previews: some View {
     ContactsView()

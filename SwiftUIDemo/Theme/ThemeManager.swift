@@ -5,6 +5,8 @@ struct Theme: Equatable {
   let text: Color
   let primary: Color
   let secondaryLight: Color
+  let tertiaryDark: Color
+  let tertiaryLight: Color
 }
 
 class ThemeManager: ObservableObject, Equatable {
@@ -34,12 +36,16 @@ extension Theme {
     background: .background,
     text: .basePrimaryDark,
     primary: .brandPrimaryNormal,
-    secondaryLight: .baseSecondaryLight
+    secondaryLight: .baseSecondaryLight,
+    tertiaryDark: .baseTertiaryDark,
+    tertiaryLight: .baseTertiaryLight
   )
   static let dark = Theme(
     background: .darkBackground,
     text: .darkBasePrimaryDark,
     primary: .darkBrandPrimaryNormal,
-    secondaryLight: .darkBaseSecondaryLight
+    secondaryLight: .darkBaseSecondaryLight,
+    tertiaryDark: .darkBaseTertiaryDark,
+    tertiaryLight: .darkBaseTertiaryLight
   )
 }
