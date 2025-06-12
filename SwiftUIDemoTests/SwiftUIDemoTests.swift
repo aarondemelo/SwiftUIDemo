@@ -1,10 +1,3 @@
-//
-//  SwiftUIDemoTests.swift
-//  SwiftUIDemoTests
-//
-//  Created by Aaron de Melo on 10/06/25.
-//
-
 import Testing
 
 @testable import SwiftUIDemo

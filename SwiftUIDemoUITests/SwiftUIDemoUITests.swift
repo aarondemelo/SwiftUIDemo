@@ -1,10 +1,3 @@
-//
-//  SwiftUIDemoUITests.swift
-//  SwiftUIDemoUITests
-//
-//  Created by Aaron de Melo on 10/06/25.
-//
-
 import XCTest
 
 final class SwiftUIDemoUITests: XCTestCase {
