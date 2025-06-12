@@ -2,6 +2,7 @@ import SwiftUI
 
 struct ComposeMessageView: View {
   @Environment(AppRouter.self) private var router
+  @EnvironmentObject var themeManager: ThemeManager
 
   @State var message: Message?
 
@@ -20,9 +21,11 @@ struct ComposeMessageView: View {
       // Input field
       HStack {
 
-        TextField("Type a message...", text: .constant("")).labelL1Semibold()
-          .padding(.horizontal, 8)
-          .padding(.vertical, 12)
+        TextField("Type a message...", text: .constant("")).labelL1Semibold(
+          color: themeManager.current.text
+        )
+        .padding(.horizontal, 8)
+        .padding(.vertical, 12)
 
         Button(action: {
           print("Send tapped")
@@ -70,9 +73,7 @@ struct ComposeMessageView: View {
             }
           }
 
-          Text(message?.name ?? "")  // Placeholder for user name
-            .font(.headline)
-            .foregroundColor(.black)
+          Text(message?.name ?? "").navBarSmallTitle(color: themeManager.current.text)
         }
       }
 
