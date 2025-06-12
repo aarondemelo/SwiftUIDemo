@@ -31,7 +31,7 @@ struct MessagesView: View {
 
           }
         }.listStyle(.plain)
-          .padding(8)
+          .padding(16)
       }
     }
     .navigationTitle("Messages")

@@ -71,7 +71,7 @@ struct ProfileView: View {
               Text("Edit Profile")
                 .font(Font.custom("Inter", size: 15))
                 .kerning(0.5)
-                .foregroundColor(.black)
+                .foregroundColor(themeManager.current.text)
                 .frame(maxWidth: .infinity, alignment: .topLeading)
             }
             .padding(.horizontal, 16)
@@ -94,7 +94,7 @@ struct ProfileView: View {
               Text("Notification")
                 .font(Font.custom("Inter", size: 15))
                 .kerning(0.5)
-                .foregroundColor(.black)
+                .foregroundColor(themeManager.current.text)
                 .frame(maxWidth: .infinity, alignment: .topLeading)
             }
             .padding(.horizontal, 16)
@@ -117,7 +117,7 @@ struct ProfileView: View {
               Text("Terms & Condition")
                 .font(Font.custom("Inter", size: 15))
                 .kerning(0.5)
-                .foregroundColor(.black)
+                .foregroundColor(themeManager.current.text)
                 .frame(maxWidth: .infinity, alignment: .topLeading)
             }
             .padding(.horizontal, 16)
@@ -138,7 +138,7 @@ struct ProfileView: View {
           Text("Dark Mode")
             .font(Font.custom("Inter", size: 15))
             .kerning(0.5)
-            .foregroundColor(.black)
+            .foregroundColor(themeManager.current.text)
             .frame(maxWidth: .infinity, alignment: .topLeading)
           // Adjust text color based on the current theme from ThemeManager
 

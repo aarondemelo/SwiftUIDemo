@@ -31,7 +31,7 @@ struct EventsView: View {
 
           }
         }.listStyle(.plain)
-          .padding(8)
+          .padding(16)
       }
     }
     .navigationTitle("Events")
