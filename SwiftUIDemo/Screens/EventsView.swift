@@ -63,36 +63,6 @@ struct EventsView: View {
     isLoading = false
   }
 
-  //  private func applyFilters() {
-  //    var filteredEvents =
-  //      events
-  //      .filter { event in
-  //        filterSettings.selectedNeighbourhoods.isEmpty
-  //          || !filterSettings.selectedNeighbourhoods.isDisjoint(with: event.neighbourhoods)
-  //      }
-  //      // Filter by time of day
-  //      .filter { event in
-  //        filterSettings.eventTimeOfDay.isEmpty
-  //          || filterSettings.eventTimeOfDay.contains(event.timeOfDay)
-  //      }
-  //      // Filter by price range
-  //      //        .filter { event in
-  //      //            filterSettings.priceRange.contains(event.price)
-  //      //        }
-  //      // Sort the result
-  //      .sorted { lhs, rhs in
-  //        switch filterSettings.sortOrder {
-  //        case .newestFirst:
-  //          return lhs.dateTime > rhs.dateTime
-  //        case .oldestFirst:
-  //          return lhs.dateTime < rhs.dateTime
-  //        case .highestPriceFirst:
-  //          return lhs.price > rhs.price
-  //        case .lowestPriceFirst:
-  //          return lhs.price < rhs.price
-  //        }
-  //      }
-  //  }
 }
 
 struct EventsView_Previews: PreviewProvider {
