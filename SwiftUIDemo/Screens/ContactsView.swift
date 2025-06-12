@@ -101,7 +101,9 @@ struct ContactsView: View {
         VStack(spacing: 0) {
           ForEach(filteredSections) { section in
             VStack(alignment: .leading, spacing: 0) {
-              Text(section.id)
+              Text(section.id).foregroundColor(
+                themeManager.current.text
+              )
             }
             .padding(.leading, 16)
             .padding(.trailing, 8)
@@ -128,7 +130,6 @@ struct ContactsView: View {
                   .frame(maxWidth: .infinity, minHeight: 56, maxHeight: 56, alignment: .leading)
                 }
                 .padding(0).frame(maxWidth: .infinity, alignment: .leading)
-                .background(Color.white)
                 //                  .background(themeManager.current.tertiaryLight)
                 .overlay(alignment: .bottom) {
                   Rectangle()
