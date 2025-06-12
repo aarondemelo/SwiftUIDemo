@@ -30,7 +30,8 @@ struct MessagesView: View {
               .listRowSeparator(.hidden)
 
           }
-        }
+        }.listStyle(.plain)
+          .padding(8)
       }
     }
     .navigationTitle("Messages")

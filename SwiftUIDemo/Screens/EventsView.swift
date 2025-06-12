@@ -30,7 +30,8 @@ struct EventsView: View {
               .listRowSeparator(.hidden)
 
           }
-        }
+        }.listStyle(.plain)
+          .padding(8)
       }
     }
     .navigationTitle("Events")
