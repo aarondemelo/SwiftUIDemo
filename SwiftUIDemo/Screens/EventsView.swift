@@ -3,9 +3,7 @@ import SwiftUI
 struct EventsView: View {
   @Environment(CatalogueClient.self) private var catalogueClient
   @Environment(AppRouter.self) private var router
-  @EnvironmentObject var filterSettings: EventFilterSettings
 
-  @State private var events: [Event] = []
   @State private var isLoading = false
   @State private var errorMessage: String?
 
@@ -20,7 +18,7 @@ struct EventsView: View {
           .frame(maxWidth: .infinity, maxHeight: .infinity)
       } else {
         List {
-          ForEach(events, id: \.id) { event in
+          ForEach(catalogueClient.filteredEvents, id: \.id) { event in
             // *** Wrap EventRowView in NavigationLink ***
             ZStack(alignment: .leading) {
               EventRowView(event: event)
@@ -49,7 +47,6 @@ struct EventsView: View {
     .refreshable {
       await loadEvents()
     }.scrollContentBackground(.hidden)
-    .environmentObject(filterSettings)
     //}
   }
 
@@ -58,7 +55,7 @@ struct EventsView: View {
     errorMessage = nil
 
     do {
-      events = try await catalogueClient.loadEventsThrows()
+      try await catalogueClient.loadEventsThrows()
     } catch {
       errorMessage = error.localizedDescription
     }
@@ -66,46 +63,44 @@ struct EventsView: View {
     isLoading = false
   }
 
-  private func applyFilters() {
-    var filteredEvents =
-      events
-      .filter { event in
-        filterSettings.selectedNeighbourhoods.isEmpty
-          || !filterSettings.selectedNeighbourhoods.isDisjoint(with: event.neighbourhoods)
-      }
-      // Filter by time of day
-      .filter { event in
-        filterSettings.eventTimeOfDay.isEmpty
-          || filterSettings.eventTimeOfDay.contains(event.timeOfDay)
-      }
-      // Filter by price range
-      //        .filter { event in
-      //            filterSettings.priceRange.contains(event.price)
-      //        }
-      // Sort the result
-      .sorted { lhs, rhs in
-        switch filterSettings.sortOrder {
-        case .newestFirst:
-          return lhs.dateTime > rhs.dateTime
-        case .oldestFirst:
-          return lhs.dateTime < rhs.dateTime
-        case .highestPriceFirst:
-          return lhs.price > rhs.price
-        case .lowestPriceFirst:
-          return lhs.price < rhs.price
-        }
-      }
-  }
+  //  private func applyFilters() {
+  //    var filteredEvents =
+  //      events
+  //      .filter { event in
+  //        filterSettings.selectedNeighbourhoods.isEmpty
+  //          || !filterSettings.selectedNeighbourhoods.isDisjoint(with: event.neighbourhoods)
+  //      }
+  //      // Filter by time of day
+  //      .filter { event in
+  //        filterSettings.eventTimeOfDay.isEmpty
+  //          || filterSettings.eventTimeOfDay.contains(event.timeOfDay)
+  //      }
+  //      // Filter by price range
+  //      //        .filter { event in
+  //      //            filterSettings.priceRange.contains(event.price)
+  //      //        }
+  //      // Sort the result
+  //      .sorted { lhs, rhs in
+  //        switch filterSettings.sortOrder {
+  //        case .newestFirst:
+  //          return lhs.dateTime > rhs.dateTime
+  //        case .oldestFirst:
+  //          return lhs.dateTime < rhs.dateTime
+  //        case .highestPriceFirst:
+  //          return lhs.price > rhs.price
+  //        case .lowestPriceFirst:
+  //          return lhs.price < rhs.price
+  //        }
+  //      }
+  //  }
 }
 
 struct EventsView_Previews: PreviewProvider {
   static let myEnvObject = CatalogueClient()
   static let myRouterObject = AppRouter(initialTab: AppTab.events)
-  static let eventFilters = EventFilterSettings()
   static var previews: some View {
     EventsView()
       .environment(myRouterObject)
       .environment(myEnvObject)
-      .environmentObject(eventFilters)
   }
 }

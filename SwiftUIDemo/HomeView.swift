@@ -3,7 +3,7 @@ import SwiftUI
 
 struct HomeView: View {
   @State private var router = AppRouter(initialTab: .events)
-  @StateObject private var filterSettings = EventFilterSettings()
+  @Environment(CatalogueClient.self) private var catalogueClient
 
   var body: some View {
     TabView(selection: $router.selectedTab) {
@@ -21,13 +21,12 @@ struct HomeView: View {
     }.sheet(item: $router.presentedSheet) { presentedSheet in
       switch presentedSheet {
       case .eventFilters:
-        EventsFilterView()
+        EventsFilterView(filterSettings: catalogueClient.filterSettings)
       case .openContacts:
         ContactsView()
       }
     }
     .environment(router)
-    .environmentObject(filterSettings)
   }
 
   @ViewBuilder

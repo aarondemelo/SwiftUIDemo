@@ -8,6 +8,7 @@ struct SwiftUIDemoApp: App {
 
   @State var appState: AppState = .unauthenticated
   @State private var catalogueClient = CatalogueClient()
+
   @Environment(\.colorScheme) private var colorScheme
   @StateObject private var themeManager: ThemeManager
 

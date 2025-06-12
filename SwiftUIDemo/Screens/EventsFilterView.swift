@@ -3,7 +3,7 @@ import SwiftUI
 struct EventsFilterView: View {
 
   @Environment(AppRouter.self) private var router
-  @EnvironmentObject var filterSettings: EventFilterSettings
+  @Bindable var filterSettings: EventFilterSettings
 
   var eventTypeNightBinding: Binding<Bool> {
     Binding<Bool>(
@@ -133,12 +133,11 @@ struct EventsFilterView_Previews: PreviewProvider {
 
   static let themeManager = ThemeManager(colorScheme: .dark)
   static let myRouterObject = AppRouter(initialTab: AppTab.events)
-  static let eventFilterObject = EventFilterSettings()
+  static let eventFilter = EventFilterSettings()
 
   static var previews: some View {
-    EventsFilterView()
+    EventsFilterView(filterSettings: eventFilter)
       .environment(myRouterObject)
       .environmentObject(themeManager)
-      .environmentObject(eventFilterObject)
   }
 }
