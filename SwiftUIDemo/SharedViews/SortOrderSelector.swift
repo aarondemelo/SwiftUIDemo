@@ -10,7 +10,7 @@ struct SortOrderSelectorView: View {
   var body: some View {
 
     VStack(alignment: .leading) {
-      Text("Sort").headingH6Medium().padding(.bottom, 8)
+      Text("Sort").headingH6Medium(color: themeManager.current.text).padding(.bottom, 8)
 
       ScrollView(.horizontal, showsIndicators: false) {
         HStack(spacing: 10) {

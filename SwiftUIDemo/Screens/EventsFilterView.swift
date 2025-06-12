@@ -4,6 +4,7 @@ struct EventsFilterView: View {
 
   @Environment(AppRouter.self) private var router
   @Bindable var filterSettings: EventFilterSettings
+  @EnvironmentObject var themeManager: ThemeManager
 
   var eventTypeNightBinding: Binding<Bool> {
     Binding<Bool>(
@@ -51,21 +52,22 @@ struct EventsFilterView: View {
           .padding(.horizontal)
 
         VStack(alignment: .leading, spacing: 20) {
-          Text("Event Type").headingH6Medium()
+          Text("Event Type").headingH6Medium(color: themeManager.current.text)
           Toggle(isOn: eventTypeNightBinding) {
-            Text("Night").labelL1Semibold()
+            Text("Night").labelL1Semibold(color: themeManager.current.text)
           }
           .toggleStyle(CheckboxStyle())
 
           Toggle(isOn: eventTypeDayBinding) {
-            Text("Day").labelL1Semibold()
+            Text("Day").labelL1Semibold(color: themeManager.current.text)
           }
           .toggleStyle(CheckboxStyle())
         }
         .padding(.horizontal)
 
         VStack(alignment: .leading, spacing: 20) {
-          Text("Neigbourhoods").headingH6Medium().padding(.bottom, 8)
+          Text("Neigbourhoods").headingH6Medium(color: themeManager.current.text).padding(
+            .bottom, 8)
 
           Menu {
             ForEach(filterSettings.availableNeighbourhoods, id: \.self) { neighborhood in
@@ -86,22 +88,22 @@ struct EventsFilterView: View {
             }
           } label: {
             HStack {
-              Text("Selected Neighborhood").labelL1Semibold()
+              Text("Selected Neighborhood").labelL1Semibold(color: themeManager.current.text)
               Spacer()
               Image(systemName: "chevron.down")
             }
             .padding()
-            .background(Color.white)
             .cornerRadius(8)
             .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.gray.opacity(0.4)))
           }
 
-          Text("Selected (\(filterSettings.selectedNeighbourhoods.count))").paragraphP2Regular()
+          Text("Selected (\(filterSettings.selectedNeighbourhoods.count))").paragraphP2Regular(
+            color: themeManager.current.text)
 
           ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 8) {
               ForEach(Array(filterSettings.selectedNeighbourhoods), id: \.self) { tag in
-                Text(tag).buttonB3Semibold()
+                Text(tag).buttonB3Semibold(color: themeManager.current.text)
                   .padding(.horizontal, 12)
                   .padding(.vertical, 8)
                   .background(Capsule().fill(Color.baseTertiaryNormal))
@@ -115,11 +117,11 @@ struct EventsFilterView: View {
         VStack(alignment: .leading, spacing: 20) {
 
           HStack {
-            Text("Price").headingH6Medium().padding(.bottom, 8)
+            Text("Price").headingH6Medium(color: themeManager.current.text).padding(.bottom, 8)
             Spacer()
             Text(
               "\(Int(filterSettings.selectedRange.lowerBound))$-\(Int(filterSettings.selectedRange.upperBound))$"
-            ).subTitleS1Regular().padding(.bottom, 8)
+            ).subTitleS1Regular(color: themeManager.current.text).padding(.bottom, 8)
 
           }
 

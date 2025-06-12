@@ -4,6 +4,7 @@ import SwiftUI
 struct HomeView: View {
   @State private var router = AppRouter(initialTab: .events)
   @Environment(CatalogueClient.self) private var catalogueClient
+  @EnvironmentObject var themeManager: ThemeManager
 
   var body: some View {
     TabView(selection: $router.selectedTab) {
@@ -19,12 +20,15 @@ struct HomeView: View {
         .tag(tab)
       }
     }.sheet(item: $router.presentedSheet) { presentedSheet in
-      switch presentedSheet {
-      case .eventFilters:
-        EventsFilterView(filterSettings: catalogueClient.filterSettings)
-      case .openContacts:
-        ContactsView()
-      }
+      Group {
+        switch presentedSheet {
+        case .eventFilters:
+          EventsFilterView(filterSettings: catalogueClient.filterSettings)
+        case .openContacts:
+          ContactsView()
+        }
+      }.presentationBackground(themeManager.current.background)
+
     }
     .environment(router)
   }
