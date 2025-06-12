@@ -1,19 +1,5 @@
 import SwiftUI
 
-//struct LoginView: View {
-//
-//    var onLoginSuccess: (User) -> Void
-//
-//    var body: some View {
-//        VStack(spacing: 20) {
-//
-//
-//
-//        }
-//        .padding()
-//    }
-//}
-
 struct LoginView: View {
   @EnvironmentObject var themeManager: ThemeManager
   var onLoginSuccess: (User) -> Void
@@ -69,11 +55,17 @@ struct LoginView: View {
 
     }
     .padding()
-    .environment(\.colorScheme, .light)
   }
 }
 
-#Preview {
-  LoginView(onLoginSuccess: { user in print("user logged in: \(user.firstName) \(user.lastName)") })
-    .frame(width: 500, height: 800)
+struct Login_Previews: PreviewProvider {
+  static let themeManager = ThemeManager()
+  static let myRouterObject = AppRouter(initialTab: AppTab.events)
+
+  static var previews: some View {
+    LoginView(onLoginSuccess: { user in print("user logged in: \(user.firstName) \(user.lastName)")
+      })
+      .environment(myRouterObject)
+      .environmentObject(themeManager)
+  }
 }

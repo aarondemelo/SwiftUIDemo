@@ -67,11 +67,16 @@ struct EventsView: View {
 }
 
 struct EventsView_Previews: PreviewProvider {
-  static let myEnvObject = CatalogueClient()
+
+  static let themeManager = ThemeManager()
   static let myRouterObject = AppRouter(initialTab: AppTab.events)
+  static let catalogueClient = CatalogueClient()
+
   static var previews: some View {
     EventsView()
       .environment(myRouterObject)
-      .environment(myEnvObject)
+      .environmentObject(themeManager)
+      .environment(catalogueClient)
   }
+
 }
