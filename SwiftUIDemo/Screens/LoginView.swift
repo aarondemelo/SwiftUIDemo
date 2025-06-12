@@ -10,51 +10,55 @@ struct LoginView: View {
   let options = ["Option 1", "Option 2", "Option 3"]
 
   var body: some View {
-    VStack(spacing: 20) {
-      Image("LogoPlaceholder")
+    ZStack {
+      // Use the current theme's background color for the main view
+      themeManager.current.background.edgesIgnoringSafeArea(.all)
+      VStack(spacing: 20) {
+        Image("LogoPlaceholder")
 
-      InputTextField(
-        label: "Email",
-        text: $email,
-        state: .enabled,
-        showTrailingButton: false,
-        trailingIconName: "eye",
-        inputType: .email,
-        onTrailingButtonTap: {
+        InputTextField(
+          label: "Email",
+          text: $email,
+          state: .enabled,
+          showTrailingButton: false,
+          trailingIconName: "eye",
+          inputType: .email,
+          onTrailingButtonTap: {
 
-        }
-      )
-
-      InputTextField(
-        label: "Password",
-        text: $password,
-        state: .enabled,
-        showTrailingButton: true,
-        trailingIconName: "eye",
-        inputType: .password,
-        onTrailingButtonTap: {
-
-        }
-      )
-
-      Button(action: {
-        let user = User(
-          firstName: "John",
-          lastName: "Doe",
-          email: "john@example.com"
+          }
         )
-        onLoginSuccess(user)
-      }) {
-        Text("Login")
-          .frame(maxWidth: .infinity)
-          .padding()
-          .background(themeManager.current.primary)
-          .foregroundColor(.white)
-          .cornerRadius(10)
-      }
 
+        InputTextField(
+          label: "Password",
+          text: $password,
+          state: .enabled,
+          showTrailingButton: true,
+          trailingIconName: "eye",
+          inputType: .password,
+          onTrailingButtonTap: {
+
+          }
+        )
+
+        Button(action: {
+          let user = User(
+            firstName: "John",
+            lastName: "Doe",
+            email: "john@example.com"
+          )
+          onLoginSuccess(user)
+        }) {
+          Text("Login")
+            .frame(maxWidth: .infinity)
+            .padding()
+            .background(themeManager.current.primary)
+            .foregroundColor(.white)
+            .cornerRadius(10)
+        }
+
+      }
+      .padding()
     }
-    .padding()
   }
 }
 
@@ -64,8 +68,8 @@ struct Login_Previews: PreviewProvider {
 
   static var previews: some View {
     LoginView(onLoginSuccess: { user in print("user logged in: \(user.firstName) \(user.lastName)")
-      })
-      .environment(myRouterObject)
-      .environmentObject(themeManager)
+    })
+    .environment(myRouterObject)
+    .environmentObject(themeManager)
   }
 }
