@@ -148,7 +148,7 @@ struct ProfileView: View {
             isOn: Binding(
               get: { self.themeManager.current.appColorScheme == .dark },  // When Toggle reads its state
               set: { newValue in  // When Toggle writes its new state
-                self.themeManager.current = newValue ? Theme.dark : Theme.light  // Update ThemeManager's theme
+                  self.themeManager.updateTheme(for: newValue ? AppColorScheme.dark : AppColorScheme.light)  // Update ThemeManager's theme
               }
             )
           ) {

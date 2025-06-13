@@ -1,7 +1,9 @@
 import SwiftUI
 
-enum AppColorScheme {
+enum AppColorScheme: String {
   case light, dark
+  var id: Self { self }
+
 }
 
 struct Theme: Equatable {
@@ -15,11 +17,19 @@ struct Theme: Equatable {
   let appColorScheme: AppColorScheme
 }
 
+
 class ThemeManager: ObservableObject, Equatable {
   @Published var current: Theme
+  @AppStorage("selectedColorScheme") private var selectedColorSchemeRaw: String = AppColorScheme.light.rawValue
 
+    
+    
   init(launchTheme: Theme = Theme.light) {
+    
     current = launchTheme  // Default theme
+      if let appColorScheme = AppColorScheme(rawValue: selectedColorSchemeRaw) {
+           updateTheme(for: appColorScheme)
+      }
   }
 
   static func == (lhs: ThemeManager, rhs: ThemeManager) -> Bool {
@@ -34,6 +44,9 @@ class ThemeManager: ObservableObject, Equatable {
       case .dark:
         self.current = Theme.dark
       }
+      
+      selectedColorSchemeRaw = scheme.rawValue
+      
       print("ThemeManager: Updated theme to \(scheme == .light ? "light" : "dark")")
     }
   }
