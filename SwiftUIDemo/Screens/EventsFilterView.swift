@@ -64,33 +64,12 @@ struct EventsFilterView: View {
           Text("Neigbourhoods").headingH6Medium(color: themeManager.current.text).padding(
             .bottom, 8)
 
-          Menu {
-            ForEach(filterSettings.availableNeighbourhoods, id: \.self) { neighborhood in
-              Button(action: {
-                if filterSettings.selectedNeighbourhoods.contains(neighborhood) {
-                  filterSettings.selectedNeighbourhoods.remove(neighborhood)
-                } else {
-                  filterSettings.selectedNeighbourhoods.insert(neighborhood)
-                }
-              }) {
-                HStack {
-                  Text(neighborhood)
-                  if filterSettings.selectedNeighbourhoods.contains(neighborhood) {
-                    Image(systemName: "checkmark")
-                  }
-                }
-              }
-            }
-          } label: {
-            HStack {
-              Text("Selected Neighborhood").labelL1Semibold(color: themeManager.current.text)
-              Spacer()
-              Image(systemName: "chevron.down")
-            }
-            .padding()
-            .cornerRadius(8)
-            .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.gray.opacity(0.4)))
-          }
+          BuilderMultiSelectMenuView(
+            title: "Selected Neighborhood",
+            allItems: filterSettings.availableNeighbourhoods,
+            selectedItems: $filterSettings.selectedNeighbourhoods,
+            textColor: themeManager.current.text
+          )
 
           Text("Selected (\(filterSettings.selectedNeighbourhoods.count))").paragraphP2Regular(
             color: themeManager.current.text)
