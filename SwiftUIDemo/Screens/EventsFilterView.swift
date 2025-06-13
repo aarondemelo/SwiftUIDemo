@@ -51,19 +51,14 @@ struct EventsFilterView: View {
         SortOrderSelectorView(selectedSortOrder: $filterSettings.sortOrder)
           .padding(.horizontal)
 
-        VStack(alignment: .leading, spacing: 20) {
-          Text("Event Type").headingH6Medium(color: themeManager.current.text)
-          Toggle(isOn: eventTypeNightBinding) {
-            Text("Night").labelL1Semibold(color: themeManager.current.text)
-          }
-          .toggleStyle(CheckboxStyle())
-
-          Toggle(isOn: eventTypeDayBinding) {
-            Text("Day").labelL1Semibold(color: themeManager.current.text)
-          }
-          .toggleStyle(CheckboxStyle())
-        }
-        .padding(.horizontal)
+        BuilderCheckboxGroupView(
+          title: "Event Type",
+          items: [
+            BuilderCheckboxItem(label: "Night", binding: eventTypeNightBinding),
+            BuilderCheckboxItem(label: "Day", binding: eventTypeDayBinding),
+          ],
+          textColor: themeManager.current.text
+        ).padding(.horizontal)
 
         VStack(alignment: .leading, spacing: 20) {
           Text("Neigbourhoods").headingH6Medium(color: themeManager.current.text).padding(
