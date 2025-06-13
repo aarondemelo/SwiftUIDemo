@@ -6,30 +6,12 @@ struct MessageRowView: View {
   var body: some View {
     HStack(alignment: .top) {
       // AsyncImage for loading event image
-      AsyncImage(url: message.avatar) { phase in
-        if let image = phase.image {
-          image
-            .resizable()
-            .aspectRatio(contentMode: .fill)
-            .frame(width: 45, height: 45)
-            .clipShape(RoundedRectangle(cornerRadius: 8))
-        } else if phase.error != nil {
-          // Fallback for error loading image
-          Image(systemName: "photo")
-            .resizable()
-            .aspectRatio(contentMode: .fit)
-            .frame(width: 45, height: 45)
-            .foregroundColor(.gray)
-            .background(Color.secondary.opacity(0.1))
-            .clipShape(RoundedRectangle(cornerRadius: 8))
-        } else {
-          // Placeholder while loading
-          ProgressView()
-            .frame(width: 45, height: 45)
-            .background(Color.secondary.opacity(0.1))
-            .clipShape(RoundedRectangle(cornerRadius: 8))
-        }
-      }
+      BuilderAsyncImageView(
+        url: message.avatar,
+        size: CGSize(width: 45, height: 45),
+        contentMode: .fill,
+        shape: .circle
+      )
 
       VStack(alignment: .leading, spacing: 6) {
         Text(message.name)

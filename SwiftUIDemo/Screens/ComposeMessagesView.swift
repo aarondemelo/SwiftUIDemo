@@ -52,28 +52,20 @@ struct ComposeMessageView: View {
       ToolbarItem(placement: .principal) {  // .principal for center alignment
         HStack(spacing: 8) {
 
-          if message?.avatar != nil {
-            AsyncImage(url: message!.avatar) { phase in
-              if let image = phase.image {
-                image
-                  .resizable()
-                  .aspectRatio(contentMode: .fit)
-                  .frame(width: 24, height: 24)
-                  .shadow(radius: 5)
-              } else if phase.error != nil {
-                Image(systemName: "person.crop.circle")
-                  .resizable()
-                  .aspectRatio(contentMode: .fit)
-                  .frame(width: 24, height: 24)
-              } else {
-                ProgressView()
-                  .frame(width: 24, height: 24)
-                  .background(Color.secondary.opacity(0.1))
-              }
-            }
+          if let message = message {
+
+            BuilderAsyncImageView(
+              url: message.avatar,
+              size: CGSize(width: 24, height: 24),
+              contentMode: .fill,
+              shape: .circle,
+              placeholderSystemImage: "person.crop.circle"
+            )
+
+            Text(message.name).navBarSmallTitle(color: themeManager.current.text)
+
           }
 
-          Text(message?.name ?? "").navBarSmallTitle(color: themeManager.current.text)
         }
       }
 

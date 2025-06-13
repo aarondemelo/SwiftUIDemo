@@ -9,24 +9,12 @@ struct EventDetailView: View {
   var body: some View {
     ScrollView {
       VStack(alignment: .leading, spacing: 20) {
-        AsyncImage(url: event.imageUrl) { phase in
-          if let image = phase.image {
-            image
-              .resizable()
-              .aspectRatio(contentMode: .fit)
-              .frame(maxWidth: .infinity)
-              .shadow(radius: 5)
-          } else if phase.error != nil {
-            Image(systemName: "photo")
-              .resizable()
-              .aspectRatio(contentMode: .fit)
-              .frame(maxWidth: .infinity, minHeight: 375)
-          } else {
-            ProgressView()
-              .frame(maxWidth: .infinity, minHeight: 375)
-              .background(Color.secondary.opacity(0.1))
-          }
-        }
+        BuilderAsyncImageView(
+          url: event.imageUrl,
+          size: CGSize(width: UIScreen.main.bounds.width, height: 375),
+          contentMode: .fill,
+          shape: .rectangle
+        ).padding(.bottom, 16)
 
         ScrollView {
           VStack(alignment: .leading, spacing: 16) {
@@ -36,24 +24,12 @@ struct EventDetailView: View {
 
                 HStack(spacing: 0) {
 
-                  AsyncImage(url: event.imageUrl) { phase in
-                    if let image = phase.image {
-                      image
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 32, height: 32)
-                        .shadow(radius: 5)
-                    } else if phase.error != nil {
-                      Image(systemName: "person.crop.circle")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 32, height: 32)
-                    } else {
-                      ProgressView()
-                        .frame(width: 32, height: 32)
-                        .background(Color.secondary.opacity(0.1))
-                    }
-                  }.clipShape(Circle())
+                  BuilderAsyncImageView(
+                    url: event.imageUrl,
+                    size: CGSize(width: 32, height: 32),
+                    contentMode: .fit,
+                    shape: .circle
+                  )
 
                   Text(event.author)
                     .buttonB3Semibold(color: Color.black)
