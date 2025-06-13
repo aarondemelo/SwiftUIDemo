@@ -37,6 +37,23 @@ extension View {
       ))
   }
 
+  func navBarLargeTitle(
+    color: Color = Color.basePrimaryDark,
+    kerning: CGFloat? = nil,
+    design: Font.Design? = nil,
+    backgroundColor: Color? = nil
+  ) -> some View {
+    self.modifier(
+      BuilderTextStyle(
+        size: 34,  // Similar to .largeTitle
+        weight: .bold,
+        color: color,
+        kerning: kerning,
+        design: design,
+        backgroundColor: backgroundColor
+      ))
+  }
+
   func navBarSmallTitle(
     color: Color = Color.basePrimaryDark,
     kerning: CGFloat? = nil,

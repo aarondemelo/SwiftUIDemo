@@ -1,9 +1,9 @@
 import SwiftUI
 
 struct EventDetailView: View {
-  
+
   @EnvironmentObject var themeManager: ThemeManager
-  
+
   let event: Event
 
   var body: some View {
@@ -28,22 +28,63 @@ struct EventDetailView: View {
           }
         }
 
-        VStack(alignment: .leading) {
-          Text(event.title)
-            .font(.largeTitle)
-            .fontWeight(.bold)
+        ScrollView {
+          VStack(alignment: .leading, spacing: 16) {
 
-          Text("By \(event.author)")
-            .font(.title2)
-            .foregroundColor(.secondary)
+            ScrollView(.horizontal, showsIndicators: false) {
+              HStack(spacing: 12) {
 
-          Divider()
+                HStack(spacing: 0) {
 
-          Text(
-            event.description
-          )
-          .font(.body)
-        }.padding()
+                  AsyncImage(url: event.imageUrl) { phase in
+                    if let image = phase.image {
+                      image
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 32, height: 32)
+                        .shadow(radius: 5)
+                    } else if phase.error != nil {
+                      Image(systemName: "person.crop.circle")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 32, height: 32)
+                    } else {
+                      ProgressView()
+                        .frame(width: 32, height: 32)
+                        .background(Color.secondary.opacity(0.1))
+                    }
+                  }.clipShape(Circle())
+
+                  Text(event.author)
+                    .buttonB3Semibold(color: Color.black)
+                    .lineLimit(1)
+                    .truncationMode(.tail)
+                    .padding(.horizontal, 12)
+                }.frame(height: 32)
+                  .background(Color.baseTertiaryNormal)
+                  .clipShape(Capsule())
+
+                HStack(spacing: 8) {
+                  Text("Tourist")
+                    .buttonB3Semibold(color: Color.black)
+                    .lineLimit(1)
+                    .truncationMode(.tail)
+                    .padding(.horizontal, 12)
+                }.frame(height: 32)
+                  .padding(.horizontal, 5)
+                  .padding(.vertical, 0)
+                  .background(Color.brandPrimaryNormal)
+                  .clipShape(Capsule())
+              }
+            }
+
+            Text(event.title).navBarLargeTitle(color: themeManager.current.text)
+
+            Text(
+              event.description
+            ).subTitleS1Regular(color: themeManager.current.text)
+          }.padding(.horizontal, 16)
+        }
       }
     }.ignoresSafeArea()
       .navigationBarTitleDisplayMode(.inline)
@@ -52,6 +93,8 @@ struct EventDetailView: View {
 }
 
 struct EventDetailsView_Previews: PreviewProvider {
+  static let themeManager = ThemeManager()
+
   static var previews: some View {
     let sampleEvent = Event(
       imageUrl: URL(
@@ -71,7 +114,7 @@ struct EventDetailsView_Previews: PreviewProvider {
     // to see how it would look in a real list context.
     // It's also good practice to give it a fixed size or padding.
 
-    EventDetailView(event: sampleEvent).listRowInsets(EdgeInsets())
-      .previewDisplayName("Event Detail Preview")  // Name for the preview in Xcode Canvas
+    EventDetailView(event: sampleEvent).environmentObject(themeManager)
+
   }
 }

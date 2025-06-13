@@ -1,5 +1,6 @@
 import SwiftUI
 
+//A Range Slider
 struct ItsukiSlider<S1: ShapeStyle, S2: ShapeStyle, T1: View, T2: View>: View {
   private var fillBackground: S1
   private var fillTrack: S2
