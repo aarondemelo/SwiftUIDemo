@@ -23,7 +23,7 @@ struct SwiftUIDemoApp: App {
     WindowGroup {
       Group {
         switch appState {
-        case .authenticated(let currentUser):
+        case .authenticated:
           HomeView()
         case .unauthenticated:
           LoginView { user in
@@ -33,6 +33,7 @@ struct SwiftUIDemoApp: App {
       }
       .environment(\.appState, $appState)
       .environment(catalogueClient)
+      .environment(EventRepository(catalogueClient: catalogueClient))
       .environmentObject(themeManager)
       .environment(\.colorScheme, themeManager.current.appColorScheme == .light ? .light : .dark)
       .background(themeManager.current.background)

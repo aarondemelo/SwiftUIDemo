@@ -3,7 +3,7 @@ import SwiftUI
 
 struct HomeView: View {
   @State private var router = AppRouter(initialTab: .events)
-  @Environment(CatalogueClient.self) private var catalogueClient
+  @Environment(EventRepository.self) private var eventRepository
   @EnvironmentObject var themeManager: ThemeManager
 
   var body: some View {
@@ -23,7 +23,7 @@ struct HomeView: View {
       Group {
         switch presentedSheet {
         case .eventFilters:
-          EventsFilterView(filterSettings: catalogueClient.filterSettings)
+          EventsFilterView(filterSettings: eventRepository.filterSettings)
         case .openContacts:
           ContactsView()
         }

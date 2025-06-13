@@ -1,7 +1,8 @@
 import SwiftUI
 
 struct EventsView: View {
-  @Environment(CatalogueClient.self) private var catalogueClient
+
+  @Environment(EventRepository.self) private var eventRepository
   @Environment(AppRouter.self) private var router
 
   @State private var isLoading = false
@@ -18,7 +19,7 @@ struct EventsView: View {
           .frame(maxWidth: .infinity, maxHeight: .infinity)
       } else {
         List {
-          ForEach(catalogueClient.filteredEvents, id: \.id) { event in
+          ForEach(eventRepository.filteredEvents, id: \.id) { event in
             // *** Wrap EventRowView in NavigationLink ***
             ZStack(alignment: .leading) {
               EventRowView(event: event)
@@ -56,7 +57,7 @@ struct EventsView: View {
     errorMessage = nil
 
     do {
-      try await catalogueClient.loadEventsThrows()
+      try await eventRepository.loadEventsThrows()
     } catch {
       errorMessage = error.localizedDescription
     }
