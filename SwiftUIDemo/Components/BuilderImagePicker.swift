@@ -1,46 +1,40 @@
-import SwiftUI
 import PhotosUI
+import SwiftUI
 
-struct BuilderImagePickerController: UIViewControllerRepresentable {
+struct BuilderImagePicker: UIViewControllerRepresentable {
   @Binding var image: UIImage?
 
   func makeUIViewController(context: Context) -> PHPickerViewController {
-    var config = PHPickerConfiguration(photoLibrary: .shared())
+    var config = PHPickerConfiguration()
     config.filter = .images
     config.selectionLimit = 1
-
     let picker = PHPickerViewController(configuration: config)
     picker.delegate = context.coordinator
     return picker
   }
 
-  func updateUIViewController(_ uiViewController: PHPickerViewController, context: Context) {
-    // No need to update UI here
+  func updateUIViewController(_ uiViewController: PHPickerViewController, context: Context) {}
+
+  func makeCoordinator() -> Coordinator {
+    Coordinator(self)
   }
 
-  func makeCoordinator() -> BuilderImagePicker {
-      BuilderImagePicker(self)
-  }
+  class Coordinator: NSObject, PHPickerViewControllerDelegate {
+    var parent: BuilderImagePicker
 
-  class BuilderImagePicker: NSObject, PHPickerViewControllerDelegate {
-    private let parent: BuilderImagePickerController
-
-    init(_ parent: BuilderImagePickerController) {
+    init(_ parent: BuilderImagePicker) {
       self.parent = parent
     }
 
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
       picker.dismiss(animated: true)
 
-      guard let provider = results.first?.itemProvider,
-            provider.canLoadObject(ofClass: UIImage.self) else { return }
+      guard let provider = results.first?.itemProvider else { return }
 
-      provider.loadObject(ofClass: UIImage.self) { [weak self] object, error in
-        guard let self = self else { return }
-
-        if let image = object as? UIImage {
+      if provider.canLoadObject(ofClass: UIImage.self) {
+        provider.loadObject(ofClass: UIImage.self) { image, _ in
           DispatchQueue.main.async {
-            self.parent.image = image
+            self.parent.image = image as? UIImage
           }
         }
       }
