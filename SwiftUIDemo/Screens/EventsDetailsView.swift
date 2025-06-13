@@ -1,6 +1,9 @@
 import SwiftUI
 
 struct EventDetailView: View {
+  
+  @EnvironmentObject var themeManager: ThemeManager
+  
   let event: Event
 
   var body: some View {

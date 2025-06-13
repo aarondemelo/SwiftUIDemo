@@ -57,6 +57,16 @@ struct HomeView: View {
   }
 }
 
-#Preview {
-  HomeView()
+struct HomeView_Previews: PreviewProvider {
+  static let themeManager = ThemeManager()
+  static let myRouterObject = AppRouter(initialTab: AppTab.events)
+    static let catalogueClient = CatalogueClient()
+
+  static var previews: some View {
+    HomeView()
+    .environment(myRouterObject)
+    .environmentObject(themeManager)
+    .environment(catalogueClient)
+
+  }
 }

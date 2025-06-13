@@ -92,7 +92,13 @@ struct ComposeMessageView: View {
 
 // MARK: - Preview Provider
 struct MessageScreen_Previews: PreviewProvider {
+    static let themeManager = ThemeManager()
+    static let myRouterObject = AppRouter(initialTab: AppTab.events)
+    
   static var previews: some View {
     ComposeMessageView()
+          .environment(myRouterObject)
+          .environmentObject(themeManager)
+
   }
 }
